@@ -23,14 +23,12 @@ export const authOptions: NextAuthOptions = NextAuth({
       });
       return true;
     },
-    session({ session }) {
+    async session({ session }) {
       const user = session?.user;
       if (user) {
-        session.user = {
-          ...user,
-          username: user.email?.split('@')[0] || '',
-        };
+        user.username = user.email?.split('@')[0] || '';
       }
+      console.log(session);
       return session;
     },
   },
