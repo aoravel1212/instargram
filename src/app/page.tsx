@@ -12,15 +12,14 @@ export default async function HomePage() {
   if (!user) {
     redirect('/auth/signin');
   }
-  user.username = user.email?.split('@')[0] || '';
 
   return (
     <section className="flex flex-col md:flex-row justify-between w-full max-w-[850px] p-4">
-      <div className="w-full basis-3/4">
+      <div className="w-full basis-3/4 min-w-0">
         <Followingbar />
         <PostList />
       </div>
-      <div className="basis-1/4">
+      <div className="basis-1/4 ml-8">
         <SideBar user={user} />
       </div>
     </section>
