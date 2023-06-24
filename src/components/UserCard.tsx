@@ -1,9 +1,9 @@
-import { ProfileUser } from '@/model/user';
+import { SearchUser } from '@/model/user';
 import Link from 'next/link';
 import Avatar from './Avatar';
 
 type Props = {
-  user: ProfileUser;
+  user: SearchUser;
 };
 
 export default function UserCard({
@@ -11,7 +11,7 @@ export default function UserCard({
 }: Props) {
   return (
     <Link
-      href={`/api/${username}`}
+      href={`/user/${username}`}
       className="flex items-center w-full rounded-sm border border-neutral-300 mb-2 p-4 bg-white hover:bg-neutral-50"
     >
       <Avatar image={image} />
