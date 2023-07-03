@@ -21,3 +21,7 @@ export type SearchUser = AuthUser & {
 export type ProfileUser = SearchUser & {
   posts: number;
 };
+
+export type UserPosts = SimpleUser & {
+  id: string;
+};
