@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function PostDetail({ post }: Props) {
-  const { id, username, userImage, image, createdAt, likes } = post;
+  const { id, username, userImage, image } = post;
   const { data } = useSWR<FullPost>(`/api/posts/${id}`);
   const comments = data?.comments;
 
@@ -47,7 +47,7 @@ export default function PostDetail({ post }: Props) {
               )
             )}
         </ul>
-        <ActionBar likes={likes} username={username} createdAt={createdAt} />
+        <ActionBar post={post} />
         <CommentForm />
       </div>
     </section>
