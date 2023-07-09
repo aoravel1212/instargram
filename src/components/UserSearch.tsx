@@ -5,7 +5,7 @@ import { FormEvent, useState } from 'react';
 import useSWR from 'swr';
 import GridSpinner from './ui/GridSpinner';
 import UserCard from './UserCard';
-import useDebounce from '@/util/hooks/debounce';
+import useDebounce from '@/hooks/debounce';
 
 export default function UserSearch() {
   const [keyword, setKeyword] = useState('');
