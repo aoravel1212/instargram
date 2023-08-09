@@ -97,6 +97,6 @@ export async function likePost(postId: string, userId: string) {
 export async function dislikePost(postId: string, userId: string) {
   return client
     .patch(postId)
-    .unset([`likes[_ref=="${userId}]`])
+    .unset([`likes[_ref=="${userId}"]`])
     .commit();
 }
