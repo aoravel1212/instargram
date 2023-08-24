@@ -11,16 +11,15 @@ export async function PUT(req: NextRequest) {
     return new Response('Authentication Error', { status: 401 });
   }
 
-  const { id, like } = await req.json();
+  const { postId, like } = await req.json();
 
-  // id가 없거나 like이 undefined
-  if (!id || like === undefined) {
+  if (!postId || like === undefined) {
     return new Response('Bad Request', { status: 400 });
   }
 
   const request = like ? likePost : dislikePost;
 
-  return request(id, user.id)
+  return request(postId, user.id)
     .then((res) => NextResponse.json(res))
     .catch((error) => new Response(JSON.stringify(error), { status: 500 }));
 }

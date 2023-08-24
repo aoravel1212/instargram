@@ -1,10 +1,10 @@
 import { SimplePost } from '@/model/post';
 import useSWR from 'swr';
 
-async function updateLike(id: string, like: boolean) {
+async function updateLike(postId: string, like: boolean) {
   return fetch('/api/likes', {
     method: 'PUT',
-    body: JSON.stringify({ id, like }),
+    body: JSON.stringify({ postId, like }),
   }).then((res) => res.json());
 }
 
@@ -36,5 +36,6 @@ export default function usePosts() {
       rollbackOnError: true,
     });
   };
+
   return { posts, isLoading, error, setLike };
 }
