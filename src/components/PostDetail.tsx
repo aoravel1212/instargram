@@ -1,10 +1,9 @@
-import { FullPost, SimplePost } from '@/model/post';
+import { SimplePost } from '@/model/post';
 import Image from 'next/image';
-import useSWR from 'swr';
 import PostUserAvatar from './PostUserAvatar';
 import ActionBar from './ActionBar';
-import CommentForm from './CommentForm';
 import Avatar from './Avatar';
+import useFullPost from '@/hooks/post';
 
 type Props = {
   post: SimplePost;
@@ -12,8 +11,10 @@ type Props = {
 
 export default function PostDetail({ post }: Props) {
   const { id, username, userImage, image } = post;
-  const { data } = useSWR<FullPost>(`/api/posts/${id}`);
+  const { post: data, postComment } = useFullPost(id);
   const comments = data?.comments;
+  console.log(data);
+  console.log(data?.comments[0]);
 
   return (
     <section className="flex w-full h-full">
@@ -32,7 +33,10 @@ export default function PostDetail({ post }: Props) {
         <ul className="border-t border-gray-200 h-full overflow-y-auto p-4 mb-1">
           {comments &&
             comments.map(
-              ({ image, username: commentUsername, comment }, index) => (
+              (
+                { image, username: commentUsername, comment: comment },
+                index
+              ) => (
                 <li key={index} className="flex items-center mb-1">
                   <Avatar
                     image={image}
@@ -47,8 +51,7 @@ export default function PostDetail({ post }: Props) {
               )
             )}
         </ul>
-        <ActionBar post={post} />
-        <CommentForm />
+        <ActionBar post={post} onComment={postComment} />
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import { Comment } from './../model/post';
 import { SimplePost } from '@/model/post';
 import { client, urlFor } from './sanity';
 
@@ -99,4 +100,25 @@ export async function dislikePost(postId: string, userId: string) {
     .patch(postId)
     .unset([`likes[_ref=="${userId}"]`])
     .commit();
+}
+
+export async function addComment(
+  postId: string,
+  userId: string,
+  comment: string
+) {
+  console.log(postId, userId, comment);
+  return client
+    .patch(postId)
+    .setIfMissing({ comments: [] })
+    .append('comments', [
+      {
+        author: {
+          _ref: userId,
+          _type: 'reference',
+        },
+        comment,
+      },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
 }

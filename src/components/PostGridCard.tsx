@@ -16,13 +16,6 @@ export default function PostGridCard({ post, priority = false }: Props) {
   const { image, username } = post;
   const { data: session } = useSession();
 
-  const handleOpenPost = () => {
-    if (!session?.user) {
-      return signIn();
-    }
-    setOpenModal(true);
-  };
-
   return (
     <div className="relative w-full aspect-square">
       <Image
@@ -32,7 +25,6 @@ export default function PostGridCard({ post, priority = false }: Props) {
         fill
         sizes="650px"
         priority={priority}
-        onClick={handleOpenPost}
       />
       {openModal && (
         <ModalPortal>
