@@ -16,16 +16,22 @@ export default function useFullPost(postId: string) {
     error,
     mutate,
   } = useSWR<FullPost>(`/api/posts/${postId}`);
-  console.log(post);
+
   const { mutate: globalMutate } = useSWRConfig();
 
   const postComment = useCallback(
     (comment: Comment) => {
       if (!post) return;
-      const newPost = {
-        ...post,
-        comments: [...post.comments, comment],
-      };
+      const newPost =
+        post.comments === null
+          ? {
+              ...post,
+              comments: [comment],
+            }
+          : {
+              ...post,
+              comments: [...post.comments, comment],
+            };
 
       return mutate(addComment(post.id, comment.text), {
         optimisticData: newPost,
