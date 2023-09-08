@@ -40,11 +40,15 @@ export default function PostListCard({ post, priority = false }: Props) {
           <span className="font-bold mr-1">{username}</span>
           {text}
         </p>
-        {comments > 1 && (
+        {comments > 0 && (
           <button
             className="font-bold my-2 text-sky-500"
             onClick={() => setOpenModal(true)}
-          >{`댓글 ${comments}개 모두 보기`}</button>
+          >
+            {comments === 1
+              ? `댓글 ${comments}개 보기`
+              : `댓글 ${comments}개 모두 보기`}
+          </button>
         )}
       </ActionBar>
       {openModal && (
