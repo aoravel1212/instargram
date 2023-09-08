@@ -54,7 +54,7 @@ export default function usePosts() {
       };
       const newPosts = posts?.map((p) => (p.id === post.id ? newPost : p));
 
-      return mutate(addComment(post.id, comment.comment), {
+      return mutate(addComment(post.id, comment.text), {
         optimisticData: newPosts,
         populateCache: false,
         revalidate: false,

@@ -13,8 +13,6 @@ export default function PostDetail({ post }: Props) {
   const { id, username, userImage, image } = post;
   const { post: data, postComment } = useFullPost(id);
   const comments = data?.comments;
-  console.log(data);
-  console.log(data?.comments[0]);
 
   return (
     <section className="flex w-full h-full">
@@ -33,10 +31,7 @@ export default function PostDetail({ post }: Props) {
         <ul className="border-t border-gray-200 h-full overflow-y-auto p-4 mb-1">
           {comments &&
             comments.map(
-              (
-                { image, username: commentUsername, comment: comment },
-                index
-              ) => (
+              ({ username: commentUsername, image, text: comment }, index) => (
                 <li key={index} className="flex items-center mb-1">
                   <Avatar
                     image={image}

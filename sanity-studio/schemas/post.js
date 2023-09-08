@@ -27,6 +27,11 @@ export default {
       validation: (Rule) => Rule.unique(),
     },
     {
+      title: 'Text',
+      name: 'text',
+      type: 'string',
+    },
+    {
       title: 'Comments',
       name: 'comments',
       type: 'array',
@@ -43,8 +48,8 @@ export default {
               to: [{type: 'user'}],
             },
             {
-              title: 'Comment',
-              name: 'comment',
+              title: 'Text',
+              name: 'text',
               type: 'string',
             },
           ],
@@ -54,9 +59,9 @@ export default {
   ],
   preview: {
     select: {
-      title: 'comments.0.comment',
+      title: 'text',
       authorName: 'author.name',
-      authorUsename: 'author.username',
+      authorUsername: 'author.username',
       media: 'photo',
     },
     prepare(selection) {
