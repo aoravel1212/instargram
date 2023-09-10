@@ -1,14 +1,13 @@
 'use client';
-import { ProfileUser } from '@/model/user';
 import Button from './ui/Button';
 import useMe from '@/hooks/me';
 
 type Props = {
-  user: ProfileUser;
+  username: string;
+  type: 'text' | 'box';
 };
 
-export default function FollowButton({ user }: Props) {
-  const { username } = user;
+export default function FollowButton({ username, type }: Props) {
   const { user: loggedInUser } = useMe();
 
   // 로그인한 유저의 페이지일 경우 팔로우 버튼 보여줄 필요가 없음
@@ -22,10 +21,21 @@ export default function FollowButton({ user }: Props) {
     loggedInUser.following.find((item) => item.username === username);
 
   const text = following ? 'Unfollow' : 'Follow';
+  // if (showButton && type === 'text')
+  //   return <span className="text-sky-500">팔로우</span>;
+  // if (showButton && type === 'box')
+  //   return <Button text={text} onClick={() => {}} red={text === 'Unfollow'} />;
   return (
     <>
-      {showButton && (
-        <Button text={text} onClick={() => {}} red={text === 'Unfollow'} />
+      {showButton && type === 'text' ? (
+        <>
+          <span className="px-2 text-neutral-400">•</span>
+          <span className="text-sky-500 font-bold">팔로우</span>
+        </>
+      ) : (
+        showButton && (
+          <Button text={text} onClick={() => {}} red={text === 'Unfollow'} />
+        )
       )}
     </>
   );
