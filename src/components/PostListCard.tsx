@@ -8,6 +8,8 @@ import PostModal from './PostModal';
 import PostDetail from './PostDetail';
 import PostUserAvatar from './PostUserAvatar';
 import usePosts from '@/hooks/posts';
+import { parseDate } from '@/util/date';
+import DotIcon from './ui/icons/DotIcon';
 
 type Props = {
   post: SimplePost;
@@ -15,7 +17,7 @@ type Props = {
 };
 
 export default function PostListCard({ post, priority = false }: Props) {
-  const { userImage, username, image, text, comments } = post;
+  const { userImage, username, image, text, comments, createdAt } = post;
   const [openModal, setOpenModal] = useState(false);
   const { postComment } = usePosts();
 
@@ -25,7 +27,12 @@ export default function PostListCard({ post, priority = false }: Props) {
 
   return (
     <article className="rounded-lg shadow-md border border-gray-200">
-      <PostUserAvatar image={userImage} username={username} />
+      <PostUserAvatar image={userImage} username={username}>
+        <DotIcon />
+        <p className=" text-neutral-500 uppercase my-2">
+          {parseDate(createdAt)}
+        </p>
+      </PostUserAvatar>
       <Image
         className="w-full object-cover aspect-square"
         src={image}

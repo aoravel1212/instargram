@@ -4,7 +4,6 @@ import HeartFillIcon from './ui/icons/HeartFillIcon';
 import BookmarkIcon from './ui/icons/BookmarkIcon';
 import BookmarkFillIcon from './ui/icons/BookmarkFillIcon';
 import { Comment, SimplePost } from '@/model/post';
-import { parseDate } from '@/util/date';
 import usePosts from '@/hooks/posts';
 import useMe from '@/hooks/me';
 import CommentForm from './CommentForm';
@@ -61,9 +60,6 @@ export default function ActionBar({ post, children, onComment }: Props) {
           likes?.length > 1 ? 'likes' : 'like'
         }`}</p>
         {children}
-        <p className="text-xs text-neutral-500 uppercase my-2">
-          {parseDate(createdAt)}
-        </p>
       </div>
       <CommentForm onPostComment={handleComment} />
     </>
