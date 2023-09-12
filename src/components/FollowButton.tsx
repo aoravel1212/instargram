@@ -1,6 +1,7 @@
 'use client';
 import Button from './ui/Button';
 import useMe from '@/hooks/me';
+import DotIcon from './ui/icons/DotIcon';
 
 type Props = {
   username: string;
@@ -29,7 +30,7 @@ export default function FollowButton({ username, type }: Props) {
     <>
       {showButton && type === 'text' ? (
         <>
-          <span className="px-2 text-neutral-400">•</span>
+          <DotIcon />
           <span className="text-sky-500 font-bold">팔로우</span>
         </>
       ) : (
