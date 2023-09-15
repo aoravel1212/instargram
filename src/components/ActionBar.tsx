@@ -36,6 +36,7 @@ export default function ActionBar({ post, children, onComment }: Props) {
         username: user.username,
         image: user.image,
         text: comment,
+        createdAt: new Date().toISOString(),
       });
   };
 

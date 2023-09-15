@@ -52,6 +52,11 @@ export default {
               name: 'text',
               type: 'string',
             },
+            {
+              title: 'Created At',
+              name: 'createdAt',
+              type: 'datetime',
+            },
           ],
         },
       ],

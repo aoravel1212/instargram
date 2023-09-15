@@ -101,7 +101,12 @@ export async function dislikePost(postId: string, userId: string) {
     .commit();
 }
 
-export async function addComment(postId: string, userId: string, text: string) {
+export async function addComment(
+  postId: string,
+  userId: string,
+  text: string,
+  createdAt: string
+) {
   return client
     .patch(postId)
     .setIfMissing({ comments: [] })
@@ -112,6 +117,7 @@ export async function addComment(postId: string, userId: string, text: string) {
           _type: 'reference',
         },
         text,
+        createdAt,
       },
     ])
     .commit({ autoGenerateArrayKeys: true });

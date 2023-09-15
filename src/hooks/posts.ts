@@ -9,10 +9,10 @@ async function updateLike(postId: string, like: boolean) {
   }).then((res) => res.json());
 }
 
-async function addComment(postId: string, comment: string) {
+async function addComment(postId: string, comment: string, createdAt: string) {
   return fetch('/api/comments', {
     method: 'POST',
-    body: JSON.stringify({ postId, comment }),
+    body: JSON.stringify({ postId, comment, createdAt }),
   }).then((res) => res.json());
 }
 
@@ -54,7 +54,7 @@ export default function usePosts() {
       };
       const newPosts = posts?.map((p) => (p.id === post.id ? newPost : p));
 
-      return mutate(addComment(post.id, comment.text), {
+      return mutate(addComment(post.id, comment.text, comment.createdAt), {
         optimisticData: newPosts,
         populateCache: false,
         revalidate: false,

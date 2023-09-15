@@ -2,10 +2,10 @@ import { Comment, FullPost } from '@/model/post';
 import { useCallback } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 
-async function addComment(postId: string, comment: string) {
+async function addComment(postId: string, comment: string, createdAt: string) {
   return fetch('/api/comments', {
     method: 'POST',
-    body: JSON.stringify({ postId, comment }),
+    body: JSON.stringify({ postId, comment, createdAt }),
   }).then((res) => res.json());
 }
 
@@ -33,7 +33,7 @@ export default function useFullPost(postId: string) {
               comments: [...post.comments, comment],
             };
 
-      return mutate(addComment(post.id, comment.text), {
+      return mutate(addComment(post.id, comment.text, comment.createdAt), {
         optimisticData: newPost,
         populateCache: false,
         revalidate: false,
