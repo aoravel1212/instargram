@@ -32,7 +32,7 @@ export async function getPost(id: string) {
         "userImage": author->image,
         "image": photo,
         "likes": likes[]->username,
-        comments[]{text, "username": author->username, "image": author->image},
+        comments[]{"username": author->username, "image": author->image, text, createdAt},
         "id": _id,
         "createdAt": _createdAt
       }`
