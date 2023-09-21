@@ -12,7 +12,6 @@ type Props = {
 export default function PostDetail({ post }: Props) {
   const { id, username, userImage, image, createdAt } = post;
   const { post: data, postComment } = useFullPost(id);
-  const authorId = data?.author._ref;
 
   return (
     <section className="flex w-full h-full">
@@ -27,18 +26,20 @@ export default function PostDetail({ post }: Props) {
         />
       </div>
       <div className="w-full basis-2/5 flex flex-col">
-        <PostUserAvatar
-          image={userImage}
-          username={username}
-          authorId={authorId}
-        />
         {data && (
-          <PostContent
-            image={userImage}
-            username={username}
-            createdAt={createdAt}
-            data={data}
-          />
+          <>
+            <PostUserAvatar
+              image={userImage}
+              username={username}
+              authorId={data.author._ref}
+            />
+            <PostContent
+              image={userImage}
+              username={username}
+              createdAt={createdAt}
+              data={data}
+            />
+          </>
         )}
         <ActionBar post={post} onComment={postComment} />
       </div>
