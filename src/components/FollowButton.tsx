@@ -2,20 +2,17 @@
 import Button from './ui/Button';
 import useMe from '@/hooks/me';
 import DotIcon from './ui/icons/DotIcon';
-import { ProfileUser } from '@/model/user';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { PulseLoader } from 'react-spinners';
 
 type Props = {
-  // user: ProfileUser;
   username: string;
   id: string;
   type: 'text' | 'box';
 };
 
 export default function FollowButton({ username, id, type }: Props) {
-  // const { username } = user;
   const { user: loggedInUser, toggleFollow } = useMe();
 
   const router = useRouter();
@@ -40,29 +37,34 @@ export default function FollowButton({ username, id, type }: Props) {
   };
 
   return (
-    <>
+    <div className="relative">
+      {isUpdating && (
+        <div className="absolute z-20 inset-0 flex justify-center items-center">
+          <PulseLoader size={6} />
+        </div>
+      )}
       {showButton && type === 'text' ? (
         <>
           <DotIcon />
-          <span className="text-sky-500 font-bold">팔로우</span>
+          <Button
+            disabled={isUpdating}
+            text={text}
+            onClick={handleFollow}
+            red={text === 'Unfollow'}
+            type={'text'}
+          />
         </>
       ) : (
         showButton && (
-          <div className="relative">
-            {isUpdating && (
-              <div className="absolute z-20 inset-0 flex justify-center items-center">
-                <PulseLoader size={6} />
-              </div>
-            )}
-            <Button
-              disabled={isUpdating}
-              text={text}
-              onClick={handleFollow}
-              red={text === 'Unfollow'}
-            />
-          </div>
+          <Button
+            disabled={isUpdating}
+            text={text}
+            onClick={handleFollow}
+            red={text === 'Unfollow'}
+            type={'box'}
+          />
         )
       )}
-    </>
+    </div>
   );
 }
