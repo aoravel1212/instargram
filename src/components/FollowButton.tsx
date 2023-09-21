@@ -8,12 +8,14 @@ import { useState, useTransition } from 'react';
 import { PulseLoader } from 'react-spinners';
 
 type Props = {
-  user: ProfileUser;
+  // user: ProfileUser;
+  username: string;
+  id: string;
   type: 'text' | 'box';
 };
 
-export default function FollowButton({ user, type }: Props) {
-  const { username } = user;
+export default function FollowButton({ username, id, type }: Props) {
+  // const { username } = user;
   const { user: loggedInUser, toggleFollow } = useMe();
 
   const router = useRouter();
@@ -30,7 +32,7 @@ export default function FollowButton({ user, type }: Props) {
 
   const handleFollow = async () => {
     setIsFetching(true);
-    await toggleFollow(user.id, !following);
+    await toggleFollow(id, !following);
     setIsFetching(false);
     startTransition(() => {
       router.refresh();

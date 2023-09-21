@@ -18,4 +18,5 @@ export type FullPost = {
   createdAt: string;
   likes: string[];
   comments: Comment[];
+  author: { _ref: string };
 };

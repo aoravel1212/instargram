@@ -4,10 +4,16 @@ import FollowButton from './FollowButton';
 type Props = {
   image: string;
   username: string;
+  authorId: string;
   children?: React.ReactNode;
 };
 
-export default function PostUserAvatar({ image, username, children }: Props) {
+export default function PostUserAvatar({
+  image,
+  username,
+  authorId,
+  children,
+}: Props) {
   return (
     <div className="flex items-center p-2">
       <div className="p-1">
@@ -17,7 +23,7 @@ export default function PostUserAvatar({ image, username, children }: Props) {
         <span className="text-gray-900 font-bold">{username}</span>
       </div>
       {children}
-      <FollowButton username={username} type={'text'} />
+      <FollowButton username={username} id={authorId} type={'text'} />
     </div>
   );
 }

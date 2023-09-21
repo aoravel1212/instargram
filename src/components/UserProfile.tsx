@@ -19,7 +19,7 @@ export default function UserProfile({ user }: Props) {
       <div className="md:ml-10 basis-1/3">
         <div className="flex flex-col md:flex-row items-center">
           <h1 className="text-2xl md:mr-8 my-2 md:mb-0">{username}</h1>
-          <FollowButton user={user} type={'box'} />
+          <FollowButton username={user.username} id={user.id} type={'box'} />
         </div>
         <ul className="my-4 flex gap-4">
           {info.map(({ title, data }, index) => (
