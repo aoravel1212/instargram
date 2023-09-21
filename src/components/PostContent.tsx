@@ -59,7 +59,9 @@ export default function PostContent({
                 </div>
                 <div className="ml-2">
                   <div>
-                    <span className="text-gray-900 font-bold">{username}</span>
+                    <span className="text-gray-900 font-bold">
+                      {commentUsername}
+                    </span>
                     <span className="ml-2">{comment}</span>
                   </div>
                   <p className="text-xs text-neutral-500 uppercase my-2">
