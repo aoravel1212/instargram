@@ -25,6 +25,7 @@ export default function PostGridCard({ post, priority = false }: Props) {
         fill
         sizes="650px"
         priority={priority}
+        onClick={() => setOpenModal(true)}
       />
       {openModal && (
         <ModalPortal>
