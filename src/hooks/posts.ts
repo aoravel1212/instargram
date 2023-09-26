@@ -1,3 +1,4 @@
+import { useCacheKeys } from '@/context/CacheKeysContext';
 import { Comment, SimplePost } from '@/model/post';
 import { useCallback } from 'react';
 import useSWR from 'swr';
@@ -17,13 +18,13 @@ async function addComment(postId: string, comment: string, createdAt: string) {
 }
 
 export default function usePosts() {
-  // hook 내부적으로 api요청을 해서 posts 데이터를 가지고 있고, bound된 mutate 함수도 가지고 있음
+  const cacheKeys = useCacheKeys();
   const {
     data: posts,
     isLoading,
     error,
     mutate,
-  } = useSWR<SimplePost[]>('/api/posts');
+  } = useSWR<SimplePost[]>(cacheKeys.postsKey);
 
   const setLike = useCallback(
     (post: SimplePost, username: string, like: boolean) => {
