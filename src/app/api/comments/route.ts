@@ -1,23 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
-import { getServerSession } from 'next-auth';
 import { addComment } from '@/service/posts';
+import { withSessionUser } from '@/util/session';
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
+  return withSessionUser(async (user) => {
+    const { postId, comment, createdAt } = await req.json();
 
-  if (!user) {
-    return new Response('Authentication Error', { status: 401 });
-  }
+    if (!postId || comment == null) {
+      return new Response('Bad Request', { status: 400 });
+    }
 
-  const { postId, comment, createdAt } = await req.json();
-
-  if (!postId || comment === undefined) {
-    return new Response('Bad Request', { status: 400 });
-  }
-
-  return addComment(postId, user.id, comment, createdAt)
-    .then((res) => NextResponse.json(res))
-    .catch((error) => new Response(JSON.stringify(error), { status: 500 }));
+    return addComment(postId, user.id, comment, createdAt)
+      .then((res) => NextResponse.json(res))
+      .catch((error) => new Response(JSON.stringify(error), { status: 500 }));
+  });
 }
