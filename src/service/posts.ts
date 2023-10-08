@@ -1,4 +1,3 @@
-import { Comment } from './../model/post';
 import { SimplePost } from '@/model/post';
 import { client, urlFor } from './sanity';
 
@@ -121,4 +120,47 @@ export async function addComment(
       },
     ])
     .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function createPost(userId: string, text: string, file: Blob) {
+  const arrayBuffer = await file.arrayBuffer();
+  const fileBuffer = Buffer.from(arrayBuffer);
+
+  return client.assets //
+    .upload('image', fileBuffer) //
+    .then((result) => {
+      return client.create(
+        {
+          _type: 'post',
+          author: { _ref: userId },
+          photo: { asset: { _ref: result._id } },
+          text: text,
+          likes: [],
+        },
+        { autoGenerateArrayKeys: true }
+      );
+    });
+
+  // nextjs 버전이 낮아서 app/api 내에서 node환경의 upload가 안써졌을 때
+  // return fetch(assetsURL, {
+  //   method: 'POST',
+  //   headers: {
+  //     'content-type': file.type,
+  //     authorization: `Bearer ${process.env.SANITY_SECRET_TOKEN}`,
+  //   },
+  //   body: file,
+  // })
+  //   .then((res) => res.json())
+  //   .then((result) => {
+  //     return client.create(
+  //       {
+  //         _type: 'post',
+  //         author: { _ref: userId },
+  //         photo: { asset: { _ref: result.document._id } },
+  //         text: text,
+  //         likes: [],
+  //       },
+  //       { autoGenerateArrayKeys: true }
+  //     );
+  //   });
 }
