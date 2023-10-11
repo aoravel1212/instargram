@@ -1,31 +1,45 @@
+import LinkToUserPage from './LinkToUserPage';
+
 type AvatarSize = 'small' | 'medium' | 'large' | 'xlarge';
 type Props = {
   image?: string | null;
   size?: AvatarSize;
   highlight?: boolean;
+  username?: string;
 };
 
 export default function Avatar({
   image,
   size = 'large',
   highlight = false,
+  username,
 }: Props) {
+  const imageSizeStyle = getImageSizeStyle(size);
+
+  const avatarImage = (
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img
+      className={`bg-white object-cover rounded-full
+        ${imageSizeStyle.image}`}
+      src={image ?? undefined}
+      alt="user profile"
+      referrerPolicy="no-referrer"
+    />
+  );
+
   return (
     <div className={getContainerStyle(size, highlight)}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className={`bg-white object-cover rounded-full
-        ${getImageSizeStyle(size).image}`}
-        src={image ?? undefined}
-        alt="user profile"
-        referrerPolicy="no-referrer"
-      />
+      {username ? (
+        <LinkToUserPage username={username}>{avatarImage}</LinkToUserPage>
+      ) : (
+        avatarImage
+      )}
     </div>
   );
 }
 
 function getContainerStyle(size: AvatarSize, highlight: boolean): string {
-  const baseStyle = 'rounded-full flex justify-center items-center';
+  const baseStyle = 'flex justify-center items-center rounded-full';
   const highlightStyle = highlight
     ? 'bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300'
     : '';
@@ -53,7 +67,7 @@ function getImageSizeStyle(size: AvatarSize): ImageSizeStyle {
     case 'large':
       return {
         container: 'w-[68px] h-[68px]',
-        image: 'w-16 h-16  p-[0.2rem]',
+        image: 'w-16 h-16 p-[0.2rem]',
       };
     case 'xlarge':
       return {

@@ -1,6 +1,7 @@
 import { FullPost } from '@/model/post';
 import Avatar from './Avatar';
 import { parseDate } from '@/util/date';
+import LinkToUserPage from './LinkToUserPage';
 
 type Props = {
   image: string;
@@ -19,11 +20,13 @@ export default function PostContent({
     <div className="p-2 border-t border-gray-200 overflow-y-auto">
       <div className="flex ">
         <div className="p-1">
-          <Avatar image={image} size="small" highlight />
+          <Avatar username={username} image={image} size="small" highlight />
         </div>
         <div className="ml-2">
           <div>
-            <span className="text-gray-900 font-bold">{username}</span>
+            <LinkToUserPage username={username}>
+              <span className="text-gray-900 font-bold">{username}</span>
+            </LinkToUserPage>
             <span className="ml-2">{data.text}</span>
           </div>
           <p className="text-xs text-neutral-500 uppercase my-2">
@@ -38,20 +41,10 @@ export default function PostContent({
               { username: commentUsername, image, text: comment, createdAt },
               index
             ) => (
-              // <li key={index} className="flex items-center p-2">
-              //   <Avatar
-              //     image={image}
-              //     size="small"
-              //     highlight={commentUsername === username}
-              //   />
-              //   <div className="ml-4">
-              //     <span className="font-bold mr-2">{commentUsername}</span>
-              //     <span>{comment}</span>
-              //   </div>
-              // </li>
               <li key={index} className="flex">
                 <div className="p-1">
                   <Avatar
+                    username={commentUsername}
                     image={image}
                     size="small"
                     highlight={commentUsername === username}
@@ -60,7 +53,9 @@ export default function PostContent({
                 <div className="ml-2">
                   <div>
                     <span className="text-gray-900 font-bold">
-                      {commentUsername}
+                      <LinkToUserPage username={commentUsername}>
+                        {commentUsername}
+                      </LinkToUserPage>
                     </span>
                     <span className="ml-2">{comment}</span>
                   </div>
