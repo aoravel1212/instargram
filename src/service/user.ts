@@ -78,7 +78,7 @@ export async function getUserForProfile(username: string) {
 export async function addBookmark(userId: string, postId: string) {
   return client
     .patch(userId)
-    .setIfMissing({ bookmark: [] })
+    .setIfMissing({ bookmarks: [] })
     .append('bookmarks', [
       {
         _ref: postId,
