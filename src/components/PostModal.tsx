@@ -3,9 +3,14 @@ import CloseIcon from './ui/icons/CloseIcon';
 type Props = {
   children: React.ReactNode;
   onClose: () => void;
+  size?: 'medium' | 'large';
 };
 
-export default function PostModal({ onClose, children }: Props) {
+export default function PostModal({
+  onClose,
+  children,
+  size = 'large',
+}: Props) {
   return (
     <section
       className="fixed top-0 left-0 flex flex-col justify-center items-center w-full h-full z-50 bg-neutral-900/70"
@@ -21,7 +26,11 @@ export default function PostModal({ onClose, children }: Props) {
       >
         <CloseIcon />
       </button>
-      <div className="bg-white w-4/5 h-3/5 max-w-7xl rounded-lg">
+      <div
+        className={`bg-white rounded-lg ${
+          size === 'large' ? 'w-4/5 h-3/5 max-w-7xl' : 'w-80'
+        }`}
+      >
         {children}
       </div>
     </section>
