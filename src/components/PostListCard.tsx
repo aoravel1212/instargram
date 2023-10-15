@@ -17,7 +17,7 @@ type Props = {
 };
 
 export default function PostListCard({ post, priority = false }: Props) {
-  const { userImage, username, image, text, comments, createdAt, author } =
+  const { userImage, username, image, text, comments, createdAt, author, id } =
     post;
   const [openModal, setOpenModal] = useState(false);
   const { postComment } = usePosts();
@@ -32,6 +32,7 @@ export default function PostListCard({ post, priority = false }: Props) {
         image={userImage}
         username={username}
         authorId={author._ref}
+        postId={id}
       >
         <DotIcon />
         <p className=" text-neutral-500 uppercase my-2">
@@ -39,7 +40,7 @@ export default function PostListCard({ post, priority = false }: Props) {
         </p>
       </PostUserAvatar>
       <Image
-        className="w-full object-cover aspect-square"
+        className="w-full object-cover aspect-square border border-neutral-200"
         src={image}
         alt={`photo by ${username}`}
         width={500}

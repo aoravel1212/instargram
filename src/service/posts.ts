@@ -1,5 +1,6 @@
 import { SimplePost } from '@/model/post';
 import { client, urlFor } from './sanity';
+import { removeBookmark } from './user';
 
 const simplePostProjection = `
   ...,
@@ -163,4 +164,22 @@ export async function createPost(userId: string, text: string, file: Blob) {
   //       { autoGenerateArrayKeys: true }
   //     );
   //   });
+}
+
+export async function deletePost(postId: string) {
+  const userIds = await client.fetch(
+    `*[_type == "user" && references("${postId}")]._id`
+  );
+
+  if (userIds.length > 0) {
+    for (const userId of userIds) {
+      await removeBookmark(userId, postId);
+    }
+  }
+
+  return client
+    .delete(postId) //
+    .catch((err) => {
+      console.error('Delete failed: ', err.message);
+    });
 }
