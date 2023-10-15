@@ -25,13 +25,14 @@ export default function PostDetail({ post }: Props) {
           sizes="650px"
         />
       </div>
-      <div className="w-full basis-2/5 flex flex-col">
+      <div className="w-full basis-2/5 flex flex-col border-l border-neutral-200">
         {data && (
           <>
             <PostUserAvatar
               image={userImage}
               username={username}
               authorId={data.author._ref}
+              postId={id}
             />
             <PostContent
               image={userImage}
