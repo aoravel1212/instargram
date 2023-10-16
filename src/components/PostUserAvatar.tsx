@@ -6,6 +6,8 @@ import DotsThreeBoldIcon from './ui/icons/DotsThreeBoldIcon';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
 import PostMenu from './PostMenu';
+import PostDelete from './PostDelete';
+// import PostEdit from './PostEdit';
 
 type Props = {
   image: string;
@@ -22,7 +24,10 @@ export default function PostUserAvatar({
   postId,
   children,
 }: Props) {
-  const [openModal, setOpenModal] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [openDeleteMenu, setOpenDeleteMenu] = useState(false);
+  const [openEditMenu, setOpenEditMenu] = useState(false);
+
   return (
     <div className="flex justify-between items-center p-2">
       <div className="flex items-center">
@@ -37,19 +42,37 @@ export default function PostUserAvatar({
         {children}
         <FollowButton username={username} id={authorId} type={'text'} />
       </div>
-      <div className="cursor-pointer" onClick={() => setOpenModal(true)}>
+      <div className="cursor-pointer" onClick={() => setOpenMenu(true)}>
         <DotsThreeBoldIcon />
       </div>
-      {openModal && (
+      {openMenu && (
         <ModalPortal>
-          <PostModal onClose={() => setOpenModal(false)} size="medium">
-            <PostMenu postId={postId} authorId={authorId} />
+          <PostModal onClose={() => setOpenMenu(false)} size="medium">
+            <PostMenu
+              onClose={() => setOpenMenu(false)}
+              onOpen={() => setOpenDeleteMenu(true)}
+              authorId={authorId}
+            />
           </PostModal>
         </ModalPortal>
       )}
-      {/* <Dropdown>
-        <DotsThreeBoldIcon />
-      </Dropdown> */}
+      {openDeleteMenu && (
+        <ModalPortal>
+          <PostModal onClose={() => setOpenDeleteMenu(false)} size="medium">
+            <PostDelete
+              onClose={() => setOpenDeleteMenu(false)}
+              postId={postId}
+            />
+          </PostModal>
+        </ModalPortal>
+      )}
+      {/* {openEditMenu && (
+        <ModalPortal>
+          <PostModal onClose={() => setOpenEditMenu(false)} size="medium">
+            <PostEdit onClose={() => setOpenEditMenu(false)} postId={postId} />
+          </PostModal>
+        </ModalPortal>
+      )} */}
     </div>
   );
 }
