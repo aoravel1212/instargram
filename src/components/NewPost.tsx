@@ -6,7 +6,6 @@ import Button from './ui/Button';
 
 export default function NewPost() {
   const [file, setFile] = useState<File>();
-  // const [text, setText] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
 
@@ -19,7 +18,6 @@ export default function NewPost() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!file) return;
-    console.log(file);
 
     setLoading(true);
     const formData = new FormData();
