@@ -26,6 +26,7 @@ export default function PostDelete({ onClose, postId }: Props) {
       })
       .catch((err) => setError(err.toString()))
       .finally(() => setLoading(false))
+      .then(() => alert('Your post was successfully deleted!'))
       .then(() => onClose());
   };
   return (
@@ -40,9 +41,10 @@ export default function PostDelete({ onClose, postId }: Props) {
           {error}
         </p>
       )}
-      <span className="text-center m-8 font-medium whitespace-nowrap">
-        Would you like to delete this post?
-      </span>
+      <div className="flex flex-col items-center p-8 gap-2 whitespace-nowrap">
+        <span className="font-medium text-2xl">Are you sure?</span>
+        <span>Would you like to delete this post?</span>
+      </div>
       <button
         onClick={() => handleDeletePost(postId)}
         className="p-2 border-t border-neutral-200 text-red-600 font-semibold text-sm"
