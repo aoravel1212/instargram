@@ -6,10 +6,8 @@ import { useState } from 'react';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
 import PostDetail from './PostDetail';
-import PostUserAvatar from './PostUserAvatar';
+import PostHeader from './PostHeader';
 import usePosts from '@/hooks/posts';
-import { parseDate } from '@/util/date';
-import DotIcon from './ui/icons/DotIcon';
 
 type Props = {
   post: SimplePost;
@@ -28,17 +26,13 @@ export default function PostListCard({ post, priority = false }: Props) {
 
   return (
     <article className="rounded-lg shadow-md border border-gray-200">
-      <PostUserAvatar
+      <PostHeader
         image={userImage}
         username={username}
+        createdAt={createdAt}
         authorId={author._ref}
         postId={id}
-      >
-        <DotIcon />
-        <p className=" text-neutral-500 uppercase my-2">
-          {parseDate(createdAt)}
-        </p>
-      </PostUserAvatar>
+      />
       <Image
         className="w-full object-cover aspect-square border border-neutral-200"
         src={image}

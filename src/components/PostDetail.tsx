@@ -1,9 +1,9 @@
 import { SimplePost } from '@/model/post';
 import Image from 'next/image';
-import PostUserAvatar from './PostUserAvatar';
 import ActionBar from './ActionBar';
 import useFullPost from '@/hooks/post';
 import PostContent from './PostContent';
+import PostHeader from './PostHeader';
 
 type Props = {
   post: SimplePost;
@@ -28,9 +28,10 @@ export default function PostDetail({ post }: Props) {
       <div className="w-full basis-2/5 flex flex-col border-l border-neutral-200">
         {data && (
           <>
-            <PostUserAvatar
+            <PostHeader
               image={userImage}
               username={username}
+              createdAt={createdAt}
               authorId={data.author._ref}
               postId={id}
             />
