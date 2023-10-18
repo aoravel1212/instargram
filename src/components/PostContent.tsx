@@ -2,25 +2,26 @@ import { FullPost } from '@/model/post';
 import Avatar from './Avatar';
 import { parseDate } from '@/util/date';
 import LinkToUserPage from './LinkToUserPage';
+import { usePostContext } from '@/context/PostContext';
 
 type Props = {
-  image: string;
-  username: string;
   data: FullPost;
-  createdAt: string;
 };
 
-export default function PostContent({
-  image,
-  username,
-  createdAt,
-  data,
-}: Props) {
+export default function PostContent({ data }: Props) {
+  const post = usePostContext();
+  const { username, userImage, createdAt } = post;
+
   return (
     <div className="p-2 border-t border-gray-200 overflow-y-auto">
       <div className="flex ">
         <div className="p-1">
-          <Avatar username={username} image={image} size="small" highlight />
+          <Avatar
+            username={username}
+            image={userImage}
+            size="small"
+            highlight
+          />
         </div>
         <div className="ml-2">
           <div>

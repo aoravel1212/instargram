@@ -1,20 +1,18 @@
-import { SimplePost } from '@/model/post';
-import Image from 'next/image';
 import { useState } from 'react';
+import { usePostContext } from '@/context/PostContext';
+import Image from 'next/image';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
 import PostDetail from './PostDetail';
-import { signIn, useSession } from 'next-auth/react';
 
 type Props = {
-  post: SimplePost;
   priority: boolean;
 };
 
-export default function PostGridCard({ post, priority = false }: Props) {
-  const [openModal, setOpenModal] = useState(false);
+export default function PostGridCard({ priority = false }: Props) {
+  const post = usePostContext();
   const { image, username } = post;
-  const { data: session } = useSession();
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div className="relative w-full aspect-square">
@@ -30,7 +28,7 @@ export default function PostGridCard({ post, priority = false }: Props) {
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
-            <PostDetail post={post} />
+            <PostDetail />
           </PostModal>
         </ModalPortal>
       )}

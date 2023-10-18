@@ -1,8 +1,9 @@
 'use client';
-import { Comment, SimplePost } from '@/model/post';
+import { usePostContext } from '@/context/PostContext';
+import { useState } from 'react';
+import { Comment } from '@/model/post';
 import Image from 'next/image';
 import ActionBar from './ActionBar';
-import { useState } from 'react';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
 import PostDetail from './PostDetail';
@@ -10,15 +11,14 @@ import PostHeader from './PostHeader';
 import usePosts from '@/hooks/posts';
 
 type Props = {
-  post: SimplePost;
   priority?: boolean;
 };
 
-export default function PostListCard({ post, priority = false }: Props) {
-  const { userImage, username, image, text, comments, createdAt, author, id } =
-    post;
-  const [openModal, setOpenModal] = useState(false);
+export default function PostListCard({ priority = false }: Props) {
+  const post = usePostContext();
+  const { username, image, text, comments } = post;
   const { postComment } = usePosts();
+  const [openModal, setOpenModal] = useState(false);
 
   const handlePostComment = (comment: Comment) => {
     postComment(post, comment);
@@ -26,13 +26,7 @@ export default function PostListCard({ post, priority = false }: Props) {
 
   return (
     <article className="rounded-lg shadow-md border border-gray-200">
-      <PostHeader
-        image={userImage}
-        username={username}
-        createdAt={createdAt}
-        authorId={author._ref}
-        postId={id}
-      />
+      <PostHeader />
       <Image
         className="w-full object-cover aspect-square border border-neutral-200"
         src={image}
@@ -42,7 +36,7 @@ export default function PostListCard({ post, priority = false }: Props) {
         priority={priority}
         onClick={() => setOpenModal(true)}
       />
-      <ActionBar post={post} onComment={handlePostComment}>
+      <ActionBar onComment={handlePostComment}>
         <p>
           <span className="font-bold mr-1">{username}</span>
           {text}
@@ -61,7 +55,7 @@ export default function PostListCard({ post, priority = false }: Props) {
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
-            <PostDetail post={post} />
+            <PostDetail />
           </PostModal>
         </ModalPortal>
       )}

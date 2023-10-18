@@ -1,16 +1,13 @@
-import { SimplePost } from '@/model/post';
+import { usePostContext } from '@/context/PostContext';
 import Image from 'next/image';
 import ActionBar from './ActionBar';
 import useFullPost from '@/hooks/post';
 import PostContent from './PostContent';
 import PostHeader from './PostHeader';
 
-type Props = {
-  post: SimplePost;
-};
-
-export default function PostDetail({ post }: Props) {
-  const { id, username, userImage, image, createdAt } = post;
+export default function PostDetail() {
+  const post = usePostContext();
+  const { id, username, image } = post;
   const { post: data, postComment } = useFullPost(id);
 
   return (
@@ -28,22 +25,11 @@ export default function PostDetail({ post }: Props) {
       <div className="w-full basis-2/5 flex flex-col border-l border-neutral-200">
         {data && (
           <>
-            <PostHeader
-              image={userImage}
-              username={username}
-              createdAt={createdAt}
-              authorId={data.author._ref}
-              postId={id}
-            />
-            <PostContent
-              image={userImage}
-              username={username}
-              createdAt={createdAt}
-              data={data}
-            />
+            <PostHeader />
+            <PostContent data={data} />
           </>
         )}
-        <ActionBar post={post} onComment={postComment} />
+        <ActionBar onComment={postComment} />
       </div>
     </section>
   );
