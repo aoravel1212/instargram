@@ -57,7 +57,7 @@ export default function PostHeader() {
       {openEditMenu && (
         <ModalPortal>
           <PostModal onClose={() => setOpenEditMenu(false)} size="large">
-            <PostEdit onClose={() => setOpenEditMenu(false)} postId={postId} />
+            <PostEdit onClose={() => setOpenEditMenu(false)} />
           </PostModal>
         </ModalPortal>
       )}
