@@ -6,22 +6,27 @@ import { useSession } from 'next-auth/react';
 type Props = {
   authorId: string;
   onClose: () => void;
-  onOpen: () => void;
+  onOpenDeleteMenu: () => void;
+  onOpenEditMenu: () => void;
 };
 
-export default function PostMenu({ authorId, onClose, onOpen }: Props) {
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState<string>();
+export default function PostMenu({
+  authorId,
+  onClose,
+  onOpenDeleteMenu,
+  onOpenEditMenu,
+}: Props) {
   const { data: session } = useSession();
   const visible = session?.user.id === authorId;
 
-  const handleEditPost = (postId: string) => {
-    // fetch(`/api/posts/${postId}`, { method: 'PUT', body: formData });
+  const handleDeleteModal = () => {
+    onClose();
+    onOpenDeleteMenu();
   };
 
-  const handleModal = () => {
+  const handleEditModal = () => {
     onClose();
-    onOpen();
+    onOpenEditMenu();
   };
 
   const menu = [
@@ -29,13 +34,13 @@ export default function PostMenu({ authorId, onClose, onOpen }: Props) {
       icon: <DeleteIcon />,
       text: 'Delete',
       design: 'text-red-600 font-semibold',
-      handle: () => handleModal(),
+      handle: () => handleDeleteModal(),
       visible: visible,
     },
     {
       icon: <EditIcon />,
       text: 'Edit',
-      handle: () => handleEditPost,
+      handle: () => handleEditModal(),
       visible: visible,
     },
     {

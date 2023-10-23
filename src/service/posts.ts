@@ -166,6 +166,16 @@ export async function createPost(userId: string, text: string, file: Blob) {
   //   });
 }
 
+export async function editPost(postId: string, text: string) {
+  return client
+    .patch(postId)
+    .set({ text })
+    .commit()
+    .catch((err) => {
+      console.error('Edit failed: ', err.message);
+    });
+}
+
 export async function deletePost(postId: string) {
   const userIds = await client.fetch(
     `*[_type == "user" && references("${postId}")]._id`
