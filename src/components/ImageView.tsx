@@ -1,15 +1,15 @@
 import Image from 'next/image';
 
 type Props = {
-  file: File;
+  image: string;
 };
 
-export default function ImageView({ file }: Props) {
+export default function ImageView({ image }: Props) {
   return (
     <div className="w-full h-full aspect-square">
       <Image
         className="object-contain w-full h-full"
-        src={URL.createObjectURL(file)}
+        src={image}
         alt="local file"
         fill
       />

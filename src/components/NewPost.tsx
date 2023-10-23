@@ -60,7 +60,7 @@ export default function NewPost() {
       <div className="flex h-[92%]">
         <div className="flex flex-col items-center w-2/3 h-full relative">
           {!file && <ImageUploadView onImageUpload={handleImageUpload} />}
-          {file && <ImageView file={file} />}
+          {file && <ImageView image={URL.createObjectURL(file)} />}
         </div>
         <div className="w-1/3 h-full border-l-2 border-gray-200">
           <textarea
