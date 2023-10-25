@@ -1,18 +1,16 @@
 import { usePostContext } from '@/context/PostContext';
+import { usePostMenuModalContext } from '@/context/PostMenuModalContext';
 import ImageView from './ImageView';
 import Button from './ui/Button';
 import GridSpinner from './ui/GridSpinner';
 import { FormEvent, useRef, useState } from 'react';
 
-type Props = {
-  onClose: () => void;
-};
-
-export default function PostEdit({ onClose }: Props) {
+export default function PostEdit() {
   const post = usePostContext();
   const { id, image, text } = post;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
+  const { closeModal } = usePostMenuModalContext();
 
   const textRef = useRef<HTMLTextAreaElement>(null);
 
@@ -25,6 +23,9 @@ export default function PostEdit({ onClose }: Props) {
 
     fetch(`/api/posts/${id}`, {
       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ editedText }),
     })
       .then((res) => {
@@ -32,10 +33,16 @@ export default function PostEdit({ onClose }: Props) {
           setError(`${res.status} ${res.statusText}`);
           return;
         }
-        location.reload();
       })
-      .catch((err) => setError(err.toString()))
-      .finally(() => setLoading(false));
+      .then(() => alert('Your post was edited.'))
+      .catch((err) => {
+        setError(err.toString());
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+        closeModal();
+      });
   };
 
   return (
@@ -56,7 +63,7 @@ export default function PostEdit({ onClose }: Props) {
       >
         <span className="font-semibold">Edit post</span>
         <div className="absolute left-0 pl-2">
-          <Button text="Canel" onClick={() => onClose()} type="text" />
+          <Button text="Canel" onClick={() => closeModal()} type="text" />
         </div>
         <div className="absolute right-0 pr-2">
           <Button text="Publish" onClick={() => {}} type="text" />

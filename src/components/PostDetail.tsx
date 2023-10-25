@@ -1,4 +1,5 @@
 import { usePostContext } from '@/context/PostContext';
+import { PostMenuModalProvider } from '@/context/PostMenuModalContext';
 import Image from 'next/image';
 import ActionBar from './ActionBar';
 import useFullPost from '@/hooks/post';
@@ -24,10 +25,10 @@ export default function PostDetail() {
       </div>
       <div className="w-full basis-2/5 flex flex-col border-l border-neutral-200">
         {data && (
-          <>
+          <PostMenuModalProvider>
             <PostHeader />
             <PostContent data={data} />
-          </>
+          </PostMenuModalProvider>
         )}
         <ActionBar onComment={postComment} />
       </div>

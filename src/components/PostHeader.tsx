@@ -1,5 +1,6 @@
+import { usePostMenuModalContext } from '@/context/PostMenuModalContext';
 import { usePostContext } from '@/context/PostContext';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { parseDate } from '@/util/date';
 import FollowButton from './FollowButton';
 import DotsThreeBoldIcon from './ui/icons/DotsThreeBoldIcon';
@@ -12,44 +13,35 @@ import PostUserAvatar from './PostUserAvatar';
 import DotIcon from './ui/icons/DotIcon';
 import UserInfo from './UserInfo';
 
-type ModalType = 'menu' | 'delete' | 'edit' | 'userInfo' | null;
-
 export default function PostHeader() {
   const post = usePostContext();
   const { userImage, username, createdAt, author, id: postId } = post;
-  const [modalType, setModalType] = useState<ModalType>(null);
-
-  const openModal = (type: ModalType) => {
-    setModalType(type);
-  };
-
-  const closeModal = () => {
-    setModalType(null);
-  };
+  const { modalType, openModal, closeModal } = usePostMenuModalContext();
 
   const renderModal = (): ReactElement | null => {
     switch (modalType) {
       case 'menu':
         return (
           <PostModal onClose={closeModal} size="medium">
-            <PostMenu
-              onClose={closeModal}
-              onOpenDeleteMenu={() => openModal('delete')}
-              onOpenEditMenu={() => openModal('edit')}
-              authorId={author._ref}
-            />
+            <PostMenu authorId={author._ref} />
           </PostModal>
         );
       case 'delete':
         return (
           <PostModal onClose={closeModal} size="medium">
-            <PostDelete onClose={closeModal} postId={postId} />
+            <PostDelete postId={postId} />
           </PostModal>
         );
       case 'edit':
         return (
           <PostModal onClose={closeModal} size="large">
-            <PostEdit onClose={closeModal} />
+            <PostEdit />
+          </PostModal>
+        );
+      case 'userInfo':
+        return (
+          <PostModal onClose={closeModal} size="medium">
+            <UserInfo />
           </PostModal>
         );
       default:

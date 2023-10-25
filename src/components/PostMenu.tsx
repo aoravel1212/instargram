@@ -1,51 +1,45 @@
 import EditIcon from './ui/icons/EditIcon';
 import DeleteIcon from './ui/icons/DeleteIcon';
 import InformationIcon from './ui/icons/InformationIcon';
+import { usePostMenuModalContext } from '@/context/PostMenuModalContext';
 import { useSession } from 'next-auth/react';
 
 type Props = {
   authorId: string;
-  onClose: () => void;
-  onOpenDeleteMenu: () => void;
-  onOpenEditMenu: () => void;
 };
 
-export default function PostMenu({
-  authorId,
-  onClose,
-  onOpenDeleteMenu,
-  onOpenEditMenu,
-}: Props) {
+export default function PostMenu({ authorId }: Props) {
+  const { openModal, closeModal } = usePostMenuModalContext();
   const { data: session } = useSession();
   const visible = session?.user.id === authorId;
-
-  const handleDeleteModal = () => {
-    onClose();
-    onOpenDeleteMenu();
-  };
-
-  const handleEditModal = () => {
-    onClose();
-    onOpenEditMenu();
-  };
 
   const menu = [
     {
       icon: <DeleteIcon />,
       text: 'Delete',
       design: 'text-red-600 font-semibold',
-      handle: () => handleDeleteModal(),
+      handle: () => {
+        closeModal();
+        openModal('delete');
+      },
       visible: visible,
     },
     {
       icon: <EditIcon />,
       text: 'Edit',
-      handle: () => handleEditModal(),
+      handle: () => {
+        closeModal();
+        openModal('edit');
+      },
       visible: visible,
     },
     {
       icon: <InformationIcon />,
       text: 'This account information',
+      handle: () => {
+        closeModal();
+        openModal('userInfo');
+      },
       visible: true,
     },
   ];

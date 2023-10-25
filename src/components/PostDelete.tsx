@@ -1,14 +1,15 @@
+import { usePostMenuModalContext } from '@/context/PostMenuModalContext';
 import GridSpinner from './ui/GridSpinner';
 import { useState } from 'react';
 
 type Props = {
-  onClose: () => void;
   postId: string;
 };
 
-export default function PostDelete({ onClose, postId }: Props) {
+export default function PostDelete({ postId }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
+  const { closeModal } = usePostMenuModalContext();
 
   const handleDeletePost = (postId: string) => {
     setLoading(true);
@@ -24,11 +25,17 @@ export default function PostDelete({ onClose, postId }: Props) {
           return;
         }
       })
-      .catch((err) => setError(err.toString()))
-      .finally(() => setLoading(false))
       .then(() => alert('Your post was successfully deleted!'))
-      .then(() => onClose());
+      .catch((err) => {
+        setError(err.toString());
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+        closeModal();
+      });
   };
+
   return (
     <div className="flex flex-col w-full relative">
       {loading && (
@@ -52,7 +59,7 @@ export default function PostDelete({ onClose, postId }: Props) {
         Delete
       </button>
       <button
-        onClick={() => onClose()}
+        onClick={() => closeModal()}
         className="p-2 border-t border-neutral-200 text-sm"
       >
         Cancel

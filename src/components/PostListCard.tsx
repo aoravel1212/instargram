@@ -1,4 +1,5 @@
 'use client';
+import { PostMenuModalProvider } from '@/context/PostMenuModalContext';
 import { usePostContext } from '@/context/PostContext';
 import { useState } from 'react';
 import { Comment } from '@/model/post';
@@ -26,7 +27,9 @@ export default function PostListCard({ priority = false }: Props) {
 
   return (
     <article className="rounded-lg shadow-md border border-gray-200">
-      <PostHeader />
+      <PostMenuModalProvider>
+        <PostHeader />
+      </PostMenuModalProvider>
       <Image
         className="w-full object-cover aspect-square border border-neutral-200"
         src={image}
