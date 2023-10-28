@@ -13,8 +13,8 @@ export default function PostContent({ data }: Props) {
   const { username, userImage, createdAt } = post;
 
   return (
-    <div className="p-2 border-t border-gray-200 overflow-y-auto">
-      <div className="flex ">
+    <div className="flex-1 p-2 border-y border-gray-200 overflow-y-auto">
+      <div className="flex">
         <div className="p-1">
           <Avatar
             username={username}
@@ -35,7 +35,7 @@ export default function PostContent({ data }: Props) {
           </p>
         </div>
       </div>
-      <ul className="h-full mb-1">
+      <ul>
         {data.comments &&
           data.comments.map(
             (
