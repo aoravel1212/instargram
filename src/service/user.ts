@@ -75,6 +75,14 @@ export async function getUserForProfile(username: string) {
     }));
 }
 
+export async function getUserInfo(username: string) {
+  return client.fetch(
+    `*[_type == "user" && username == "${username}"]{
+    "createdAt": _createdAt
+  }`
+  );
+}
+
 export async function addBookmark(userId: string, postId: string) {
   return client
     .patch(userId)

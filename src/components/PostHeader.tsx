@@ -41,7 +41,7 @@ export default function PostHeader() {
       case 'userInfo':
         return (
           <PostModal onClose={closeModal} size="medium">
-            <UserInfo />
+            <UserInfo username={username} userImage={userImage} />
           </PostModal>
         );
       default:
