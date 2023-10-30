@@ -41,7 +41,7 @@ export default function Navbar() {
           <h1 className="text-3xl font-bold">Instantgram</h1>
         </Link>
         <nav className="gap-3">
-          <ul className="flex items-center gap-4 p-4">
+          <ul className="flex items-center gap-4 py-4">
             {menu.map((item) => (
               <li key={item.href}>
                 <Link href={item.href}>
