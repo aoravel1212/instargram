@@ -13,14 +13,14 @@ export default function PostDetail() {
 
   return (
     <section className="flex w-full h-full">
-      <div className="relative basis-3/5">
+      <div className="relative basis-3/5 rounded-l-lg bg-black">
         <Image
-          className="object-cover rounded-l-lg"
+          className="max-h-full max-w-full"
           src={image}
           alt={`photo by ${username}`}
           priority
           fill
-          sizes="650px"
+          objectFit="contain"
         />
       </div>
       <div className="w-full basis-2/5 flex flex-col border-l border-neutral-200">
