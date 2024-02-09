@@ -14,17 +14,21 @@ import ColorButton from './ui/ColorButton';
 import NewPost from './NewPost';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
+import SignOutIcon from './ui/icons/SignOutIcon';
+import { FaInstagram } from 'react-icons/fa';
 
 const menu = [
   {
     href: '/',
     icon: <HomeIcon />,
     clickedIcon: <HomeFillIcon />,
+    text: '홈',
   },
   {
     href: '/search',
     icon: <SearchIcon />,
     clickedIcon: <SearchFillIcon />,
+    text: '검색',
   },
 ];
 
@@ -36,37 +40,65 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="flex justify-between items-center px-6">
-        <Link href="/">
-          <h1 className="text-3xl font-bold">Instantgram</h1>
+      <div className="flex justify-center lg:justify-start items-center md:relative md:px-4 lg:px-6 h-full">
+        <Link href="/" className="hidden md:inline-block md:absolute md:top-0">
+          <h1 className="flex items-center text-2xl font-semibold py-8">
+            <span className="lg:hidden">
+              <FaInstagram />
+            </span>
+            <span className="hidden lg:inline-block">Instargram</span>
+          </h1>
         </Link>
-        <nav className="gap-3">
-          <ul className="flex items-center gap-4 py-4">
+        <nav className="flex md:flex-col justify-center items-center lg:items-start md:justify-between w-full h-full">
+          <ul className="flex md:flex-col justify-evenly md:justify-center items-center lg:items-start md:gap-6 md:mt-28 w-full">
             {menu.map((item) => (
               <li key={item.href}>
-                <Link href={item.href}>
-                  {path === item.href ? item.clickedIcon : item.icon}
+                <Link href={item.href} className="flex items-center gap-4">
+                  <span className="text-2xl">
+                    {path === item.href ? item.clickedIcon : item.icon}
+                  </span>
+                  <span className="hidden lg:inline-block">{item.text}</span>
                 </Link>
               </li>
             ))}
-            <li className="cursor-pointer" onClick={() => setOpenModal(true)}>
-              {openModal ? <NewFillIcon /> : <NewIcon />}
+            <li
+              className="flex items-center gap-4 cursor-pointer"
+              onClick={() => setOpenModal(true)}
+            >
+              <span className="text-2xl">
+                {openModal ? <NewFillIcon /> : <NewIcon />}
+              </span>
+              <span className="hidden lg:inline-block">만들기</span>
             </li>
             {user && (
               <li>
-                <Link href={`/user/${user.username}`}>
-                  <Avatar image={user.image} size="small" highlight />
+                <Link
+                  href={`/user/${user.username}`}
+                  className="flex justify-center lg:justify-start items-center gap-3 lg:-translate-x-0.5"
+                >
+                  <span className="text-2xl">
+                    {path === `/user/${user.username}` ? (
+                      <Avatar image={user.image} size="xsmall" clicked />
+                    ) : (
+                      <Avatar image={user.image} size="xsmall" />
+                    )}
+                  </span>
+                  <span className="hidden lg:inline-block">프로필</span>
                 </Link>
               </li>
             )}
-            <li>
-              {session ? (
-                <ColorButton text="Sign out" onClick={() => signOut()} />
-              ) : (
-                <ColorButton text="Sign in" onClick={() => signIn()} />
-              )}
-            </li>
           </ul>
+          <div className="hidden md:flex md:justify-center lg:justify-start md:items-center gap-2 md:mb-8">
+            <span className="text-2xl">
+              <SignOutIcon />
+            </span>
+            <span className="hidden lg:inline-block">
+              <ColorButton
+                text={session ? '로그아웃' : '로그인'}
+                onClick={session ? signOut : signIn}
+              />
+            </span>
+          </div>
         </nav>
       </div>
       {openModal && (
