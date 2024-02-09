@@ -55,13 +55,6 @@ function getContainerStyle(size: AvatarSize, highlight: boolean): string {
   return `${baseStyle} ${highlightStyle} ${container}`;
 }
 
-// function getClickedStyle(
-//   clicked: boolean
-// ):string{
-//   const clickedStyle = clicked ? 'border-black border-2' : '';
-//   return `${clickedStyle}`;
-// }
-
 type ImageSizeStyle = {
   container: string;
   image: string;
