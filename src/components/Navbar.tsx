@@ -7,6 +7,7 @@ import HomeIcon from './ui/icons/HomeIcon';
 import HomeFillIcon from './ui/icons/HomeFillIcon';
 import SearchIcon from './ui/icons/SearchIcon';
 import SearchFillIcon from './ui/icons/SearchFillIcon';
+import InstagramLogoIcon from './ui/icons/InstagramLogoIcon';
 import NewIcon from './ui/icons/NewIcon';
 import NewFillIcon from './ui/icons/NewFillIcon';
 import Avatar from './Avatar';
@@ -15,7 +16,6 @@ import NewPost from './NewPost';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
 import SignOutIcon from './ui/icons/SignOutIcon';
-import { FaInstagram } from 'react-icons/fa';
 
 const menu = [
   {
@@ -42,12 +42,7 @@ export default function Navbar() {
     <>
       <div className="flex justify-center lg:justify-start items-center md:relative md:px-4 lg:px-6 h-full">
         <Link href="/" className="hidden md:inline-block md:absolute md:top-0">
-          <h1 className="flex items-center text-2xl font-semibold py-8">
-            <span className="lg:hidden">
-              <FaInstagram />
-            </span>
-            <span className="hidden lg:inline-block">Instargram</span>
-          </h1>
+          <InstagramLogoIcon />
         </Link>
         <nav className="flex md:flex-col justify-center items-center lg:items-start md:justify-between w-full h-full">
           <ul className="flex md:flex-col justify-evenly md:justify-center items-center lg:items-start md:gap-6 md:mt-28 w-full">

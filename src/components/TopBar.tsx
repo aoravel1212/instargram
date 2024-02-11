@@ -1,7 +1,5 @@
+import InstagramLogoIcon from './ui/icons/InstagramLogoIcon';
+
 export default function TopBar() {
-  return (
-    <>
-      <h1 className="text-xl font-semibold p-4">Instargram</h1>
-    </>
-  );
+  return <InstagramLogoIcon componentType="TopBar" />;
 }
