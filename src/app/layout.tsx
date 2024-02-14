@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={openSans.className}>
-      <body className="w-full bg-neutral-50 overflow-auto">
+      <body className="w-full overflow-auto">
         <AuthContext>
           {session && (
             <header>
