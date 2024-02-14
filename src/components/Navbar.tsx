@@ -1,7 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import HomeIcon from './ui/icons/HomeIcon';
 import HomeFillIcon from './ui/icons/HomeFillIcon';
@@ -11,7 +11,7 @@ import InstagramLogoIcon from './ui/icons/InstagramLogoIcon';
 import NewIcon from './ui/icons/NewIcon';
 import NewFillIcon from './ui/icons/NewFillIcon';
 import Avatar from './Avatar';
-import ColorButton from './ui/ColorButton';
+import AuthButton from './ui/AuthButton';
 import NewPost from './NewPost';
 import ModalPortal from './ui/ModalPortal';
 import PostModal from './PostModal';
@@ -83,16 +83,15 @@ export default function Navbar() {
               </li>
             )}
           </ul>
-          <div className="hidden md:flex md:justify-center lg:justify-start md:items-center gap-2 md:mb-8">
-            <span className="text-2xl">
-              <SignOutIcon />
-            </span>
-            <span className="hidden lg:inline-block">
-              <ColorButton
-                text={session ? '로그아웃' : '로그인'}
-                onClick={session ? signOut : signIn}
-              />
-            </span>
+          <div className="w-full hidden md:flex md:justify-center lg:justify-start md:items-center gap-2 md:mb-8">
+            <AuthButton logout>
+              <div className="flex gap-2">
+                <span className="text-2xl">
+                  <SignOutIcon />
+                </span>
+                <span className="hidden lg:inline-block">로그아웃</span>
+              </div>
+            </AuthButton>
           </div>
         </nav>
       </div>
