@@ -1,11 +1,32 @@
 'use client';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import AuthButton from './ui/AuthButton';
 import GoogleIcon from './ui/icons/GoogleIcon';
 
 export default function SigninForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const inputList = [
+    {
+      'aria-label': '사용자 이메일',
+      'aria-required': true,
+      autoCapitalize: 'off',
+      type: 'text',
+      value: username,
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        setUsername(e.target.value),
+    },
+    {
+      'aria-label': '비밀번호',
+      'aria-required': true,
+      autoCapitalize: 'off',
+      type: 'password',
+      value: password,
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        setPassword(e.target.value),
+    },
+  ];
 
   const handleLogin = () => {
     // 로그인 처리 로직
@@ -16,50 +37,34 @@ export default function SigninForm() {
   return (
     <form className="flex flex-col gap-5 w-full" id="loginForm" method="post">
       <div className="flex flex-col gap-1">
-        <div className="w-full h-10 rounded border border-neutral-300 focus-within:border-neutral-400 bg-neutral-50">
-          <label className="w-full h-full inline-block relative">
-            <span
-              className={`w-[250px] h-full absolute leading-10 left-2 text-sm text-neutral-500 transition-all ${
-                username ? 'text-xs -translate-y-2' : ''
-              }`}
-            >
-              사용자 이메일
-            </span>
-            <input
-              aria-label="사용자 이메일"
-              aria-required="true"
-              autoCapitalize="off"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className={`w-full h-full p-2 text-sm focus:outline-none bg-transparent ${
-                username ? 'text-xs translate-y-2' : ''
-              }`}
-            />
-          </label>
-        </div>
-        <div className="w-full h-10 rounded border border-neutral-300 focus-within:border-neutral-400 bg-neutral-50">
-          <label className="w-full h-full inline-block relative">
-            <span
-              className={`w-[250px] h-full absolute leading-10 left-2 text-sm text-neutral-500 transition-all ${
-                password ? 'text-xs -translate-y-2' : ''
-              }`}
-            >
-              비밀번호
-            </span>
-            <input
-              aria-label="비밀번호"
-              aria-required="true"
-              autoCapitalize="off"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`w-full h-full p-2 text-sm focus:outline-none bg-transparent ${
-                password ? 'text-xs translate-y-2' : ''
-              }`}
-            />
-          </label>
-        </div>
+        {inputList.map((item, idx) => (
+          <div
+            key={idx}
+            className="w-full h-10 rounded border border-neutral-300 focus-within:border-neutral-400 bg-neutral-50"
+          >
+            <label className="w-full h-full inline-block relative">
+              <span
+                className={`w-[250px] h-full absolute leading-10 left-2 text-sm text-neutral-500 transition-all ${
+                  item.value ? 'text-xs -translate-y-2' : ''
+                }`}
+              >
+                {item['aria-label']}
+              </span>
+              <input
+                // aria-label={item['aria-label']}
+                // aria-required={item['aria-required']}
+                // autoCapitalize={item.autoCapitalize}
+                // type={item.type}
+                // value={item.value}
+                // onChange={item.onChange}
+                {...item}
+                className={`w-full h-full p-2 text-sm focus:outline-none bg-transparent ${
+                  item.value ? 'text-xs translate-y-2' : ''
+                }`}
+              />
+            </label>
+          </div>
+        ))}
       </div>
       <button
         type="button"
