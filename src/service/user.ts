@@ -1,27 +1,8 @@
+import { AdapterUser } from 'next-auth/adapters';
 import { SearchUser } from './../model/user';
 import { client } from './sanity';
 
-type OAuthUser = {
-  id: string;
-  email: string;
-  name: string;
-  username: string;
-  image?: string | null;
-};
-
-export async function addUser({ id, username, email, name, image }: OAuthUser) {
-  return client.createIfNotExists({
-    _id: id,
-    _type: 'user',
-    username,
-    email,
-    name,
-    image,
-    following: [],
-    followers: [],
-    bookmarks: [],
-  });
-}
+type AdapterUserWithoutId = Omit<AdapterUser, 'id'>;
 
 export async function getUserByUsername(username: string) {
   return await client.fetch(
@@ -125,4 +106,44 @@ export async function unfollow(myId: string, targetId: string) {
     .patch(myId, (user) => user.unset([`following[_ref=="${targetId}"]`]))
     .patch(targetId, (user) => user.unset([`followers[_ref=="${myId}"]`]))
     .commit({ autoGenerateArrayKeys: true });
+}
+
+// used in the adapter from here down
+export async function addUser({
+  email,
+  name,
+  image,
+  emailVerified,
+}: AdapterUserWithoutId) {
+  return client.create({
+    _type: 'user',
+    email,
+    username: email.split('@')[0],
+    name: name ? name : email.split('@')[0],
+    image,
+    emailVerified,
+  });
+}
+
+export async function fetchUserById(id: string) {
+  return await client.fetch(`*[_type == "user" && _id == "${id}"][0]{
+    "id":_id,
+    name,
+    email,
+    emailVerified,
+    image,
+  }`);
+}
+
+export async function fetchUserByEmail(email: string) {
+  return await client.fetch(
+    `*[_type == "user" && email == "${email}"][0]{"id": _id, name, email, emailVerified}`
+  );
+}
+
+export async function updateUserEmailVerified(
+  id: string,
+  emailVerified: Date | null | undefined
+) {
+  return await client.patch(id).set({ emailVerified }).commit();
 }
