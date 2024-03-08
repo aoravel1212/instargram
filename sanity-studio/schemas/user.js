@@ -17,6 +17,12 @@ export default {
       title: 'Email',
       name: 'email',
       type: 'string',
+      validation: (Rule) => Rule.email(),
+    },
+    {
+      name: 'emailVerified',
+      title: 'EmailVerified',
+      type: 'datetime',
     },
     {
       title: 'Image',
