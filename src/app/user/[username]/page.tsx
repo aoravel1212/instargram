@@ -17,7 +17,7 @@ export default async function UserPage({ params: { username } }: Props) {
   if (!user) {
     notFound();
   }
-  console.log('check token', process.env.REACT_APP_SANITY_PROJECT_ID);
+
   return (
     <section className="w-full">
       <UserProfile user={user} />
