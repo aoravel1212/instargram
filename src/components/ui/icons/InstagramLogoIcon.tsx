@@ -21,9 +21,7 @@ export default function InstagramLogoIcon({ componentType = 'Navbar' }: Props) {
       );
 
     case 'Signin':
-      return (
-        <h1 className="text-center font-semibold text-3xl my-4">Instargram</h1>
-      );
+      return <h1 className="text-center font-semibold text-3xl">Instargram</h1>;
 
     default:
       throw new Error(`Unsupported type: ${componentType}`);
