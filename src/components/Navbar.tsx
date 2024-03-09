@@ -84,7 +84,7 @@ export default function Navbar() {
             )}
           </ul>
           <div className="w-full hidden md:flex md:justify-center lg:justify-start md:items-center gap-2 md:mb-8">
-            <AuthButton logout>
+            <AuthButton>
               <div className="flex gap-2">
                 <span className="text-2xl">
                   <SignOutIcon />
