@@ -3,11 +3,12 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 import InstagramLogoIcon from '@/components/ui/icons/InstagramLogoIcon';
-import SigninForm from '@/components/SigninForm';
+import EmailSignin from '@/components/EmailSignin';
+import OAuthSignin from '@/components/OAuthSignin';
 
 export const metadata: Metadata = {
   title: '로그인',
-  description: 'Instargram에 로그인 또는 가입',
+  description: 'Instargram에 로그인',
 };
 
 export default async function SigninPage() {
@@ -19,23 +20,22 @@ export default async function SigninPage() {
 
   return (
     <section className="flex justify-center items-center h-full">
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col h-[400px] w-[350px] sm:border sm:border-neutral-300 p-6">
+      <div className="flex flex-col h-[400px] w-[320px] sm:border sm:border-neutral-300 px-8 py-12">
+        <div className="flex flex-1 justify-center items-center cursor-default">
           <InstagramLogoIcon componentType="Signin" />
-          <div className="w-full p-4 mt-6">
-            <SigninForm />
-          </div>
         </div>
-        <div className="text-center sm:border sm:border-neutral-300 p-4">
-          <p className="text-sm text-neutral-700">
-            계정이 없으신가요?{' '}
-            <a
-              href="#"
-              className="font-semibold text-blue-500 hover:text-blue-600"
-            >
-              가입하기
-            </a>
-          </p>
+        <div className="flex-grow w-full flex justify-center items-center">
+          <EmailSignin />
+        </div>
+        <div className="flex flex-1 items-center">
+          <div className="border-t border-neutral-300 w-full h-[1px]" />
+          <div className="whitespace-nowrap mx-4 text-sm text-neutral-600">
+            또는
+          </div>
+          <div className="border-t border-neutral-300 w-full h-[1px]" />
+        </div>
+        <div className="flex flex-1 justify-center items-center">
+          <OAuthSignin />
         </div>
       </div>
     </section>
