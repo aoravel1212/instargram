@@ -31,6 +31,7 @@ export default function EmailSignin() {
             autoCapitalize="off"
             aria-required="true"
             required
+            autoComplete="off"
             className={`w-full h-full p-2 text-sm focus:outline-none bg-transparent ${
               email ? 'text-xs translate-y-2' : ''
             }`}
