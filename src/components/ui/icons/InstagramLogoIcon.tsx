@@ -8,11 +8,11 @@ type Props = {
 export default function InstagramLogoIcon({ componentType = 'Navbar' }: Props) {
   switch (componentType) {
     case 'TopBar':
-      return <h1 className="text-xl font-semibold p-4">Instargram</h1>;
+      return <h1 className="text-xl font-bold p-4">Instargram</h1>;
 
     case 'Navbar':
       return (
-        <h1 className="flex items-center text-2xl font-semibold my-8">
+        <h1 className="flex items-center text-2xl font-bold my-8">
           <span className="lg:hidden">
             <FaRegStar />
           </span>
@@ -21,7 +21,7 @@ export default function InstagramLogoIcon({ componentType = 'Navbar' }: Props) {
       );
 
     case 'Signin':
-      return <h1 className="text-center font-semibold text-3xl">Instargram</h1>;
+      return <h1 className="text-center font-bold text-3xl">Instargram</h1>;
 
     default:
       throw new Error(`Unsupported type: ${componentType}`);
