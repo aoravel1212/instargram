@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
-import InstagramLogoIcon from '@/components/ui/icons/InstagramLogoIcon';
+import LogoIcon from '@/components/ui/icons/LogoIcon';
 import EmailSignin from '@/components/EmailSignin';
 import OAuthSignin from '@/components/OAuthSignin';
 
@@ -20,9 +20,9 @@ export default async function SigninPage() {
 
   return (
     <section className="flex justify-center items-center h-full">
-      <div className="flex flex-col h-[400px] w-[320px] sm:border sm:border-neutral-300 px-8 py-12">
+      <div className="flex flex-col h-[400px] w-[350px] sm:border sm:border-neutral-300 px-10 py-16">
         <div className="flex flex-1 justify-center items-center cursor-default">
-          <InstagramLogoIcon componentType="Signin" />
+          <LogoIcon componentType="Signin" />
         </div>
         <div className="flex-grow w-full flex justify-center items-center">
           <EmailSignin />
