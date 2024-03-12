@@ -17,22 +17,16 @@ export default function LogoIcon({ componentType = 'Navbar' }: Props) {
 
     case 'Navbar':
       return (
-        <Link href="/">
-          <div className="flex items-center text-2xl font-bold my-8">
-            <span className="lg:hidden">
-              <FaRegStar />
-            </span>
-            <h1 className="hidden lg:inline-block">Instargram</h1>
-          </div>
+        <Link href="/" className="flex items-center text-2xl font-bold my-8">
+          <span className="lg:hidden">
+            <FaRegStar />
+          </span>
+          <h1 className="hidden lg:inline-block">Instargram</h1>
         </Link>
       );
 
     case 'Signin':
-      return (
-        <Link href="/">
-          <h1 className="text-center font-bold text-3xl">Instargram</h1>
-        </Link>
-      );
+      return <h1 className="text-center font-bold text-3xl">Instargram</h1>;
 
     default:
       throw new Error(`Unsupported type: ${componentType}`);
