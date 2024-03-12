@@ -1,9 +1,11 @@
+'use client';
 import {
   getProviders,
   ClientSafeProvider,
   signIn,
   signOut,
 } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import { PropagateLoader } from 'react-spinners';
 import useSWR from 'swr';
 
@@ -61,7 +63,7 @@ export default function AuthButton({
 
   const provider = Object.values(providers).filter((item) => item.id === id);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleSignin = (e: React.MouseEvent) => {
     if (id === 'google') {
       signIn(id);
     }
@@ -71,6 +73,11 @@ export default function AuthButton({
     }
   };
 
+  const handleSignout = async () => {
+    await signOut();
+    redirect('/');
+  };
+
   return (
     <>
       {login ? (
@@ -78,14 +85,14 @@ export default function AuthButton({
           <button
             key={id}
             className={style && buttonStyle(style)}
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleSignin(e)}
             type={type ? type : undefined}
           >
             {children}
           </button>
         ))
       ) : (
-        <button key={id} onClick={() => signOut()}>
+        <button key={id} onClick={handleSignout}>
           {children}
         </button>
       )}
