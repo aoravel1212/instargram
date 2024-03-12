@@ -7,7 +7,7 @@ import HomeIcon from './ui/icons/HomeIcon';
 import HomeFillIcon from './ui/icons/HomeFillIcon';
 import SearchIcon from './ui/icons/SearchIcon';
 import SearchFillIcon from './ui/icons/SearchFillIcon';
-import InstagramLogoIcon from './ui/icons/InstagramLogoIcon';
+import LogoIcon from './ui/icons/LogoIcon';
 import NewIcon from './ui/icons/NewIcon';
 import NewFillIcon from './ui/icons/NewFillIcon';
 import Avatar from './Avatar';
@@ -41,9 +41,9 @@ export default function Navbar() {
   return (
     <>
       <div className="flex justify-center lg:justify-start items-center md:relative md:px-4 lg:px-6 h-full">
-        <Link href="/" className="hidden md:inline-block md:absolute md:top-0">
-          <InstagramLogoIcon />
-        </Link>
+        <div className="hidden md:inline-block md:absolute md:top-0">
+          <LogoIcon />
+        </div>
         <nav className="flex md:flex-col justify-center items-center lg:items-start md:justify-between w-full h-full">
           <ul className="flex md:flex-col justify-evenly md:justify-center items-center lg:items-start md:gap-6 md:mt-28 w-full">
             {menu.map((item) => (
@@ -72,11 +72,11 @@ export default function Navbar() {
                   className="flex justify-center lg:justify-start items-center gap-3 lg:-translate-x-0.5"
                 >
                   <span className="text-2xl">
-                    {path === `/user/${user.username}` ? (
-                      <Avatar image={user.image} size="xsmall" clicked />
-                    ) : (
-                      <Avatar image={user.image} size="xsmall" />
-                    )}
+                    <Avatar
+                      image={user.image}
+                      size="xsmall"
+                      clicked={path === `/user/${user.username}`}
+                    />
                   </span>
                   <span className="hidden lg:inline-block">프로필</span>
                 </Link>
