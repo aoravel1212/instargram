@@ -122,6 +122,9 @@ export async function addUser({
     name: name ? name : email.split('@')[0],
     image,
     emailVerified,
+    following: [],
+    followers: [],
+    bookmarks: [],
   });
 }
 
