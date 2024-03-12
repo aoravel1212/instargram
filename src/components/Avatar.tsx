@@ -1,4 +1,5 @@
 import LinkToUserPage from './LinkToUserPage';
+import PersonIcon from './ui/icons/PersonIcon';
 
 type AvatarSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type Props = {
@@ -24,14 +25,18 @@ export default function Avatar({
         clicked ? 'border-black border-1' : 'border-white'
       }`}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className={`object-cover rounded-full shadow-slate-600
+      {image ? (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          className={`object-cover rounded-full shadow-slate-600
         ${imageSizeStyle.image}`}
-        src={image ?? undefined}
-        alt="user profile"
-        referrerPolicy="no-referrer"
-      />
+          src={image}
+          alt="user profile"
+          referrerPolicy="no-referrer"
+        />
+      ) : (
+        <PersonIcon />
+      )}
     </div>
   );
 
