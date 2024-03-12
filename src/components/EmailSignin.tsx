@@ -31,10 +31,14 @@ export default function EmailSignin() {
             autoCapitalize="off"
             aria-required="true"
             required
-            autoComplete="off"
             className={`w-full h-full p-2 text-sm focus:outline-none bg-transparent ${
               email ? 'text-xs translate-y-2' : ''
             }`}
+            style={{
+              WebkitBoxShadow: '0 0 0 30px #ffffff0 inset',
+              WebkitTextFillColor: '#000',
+              transition: 'background-color 5000s ease-in-out 0s',
+            }}
           />
         </label>
       </div>
