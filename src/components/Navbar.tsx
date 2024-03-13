@@ -45,7 +45,7 @@ export default function Navbar() {
           <LogoIcon />
         </div>
         <nav className="flex md:flex-col justify-center items-center lg:items-start md:justify-between w-full h-full">
-          <ul className="flex md:flex-col justify-evenly md:justify-center items-center lg:items-start md:gap-6 md:mt-28 w-full">
+          <ul className="flex md:flex-col justify-evenly md:justify-center items-center lg:items-start md:gap-8 md:mt-28 w-full">
             {menu.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="flex items-center gap-4">
