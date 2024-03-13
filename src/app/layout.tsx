@@ -39,13 +39,15 @@ export default async function RootLayout({
               </div>
             </header>
           )}
-          <main
-            className={`flex justify-center w-full h-full max-w-screen-xl mx-auto ${
-              session && 'mt-[60px]'
-            } md:mt-0`}
-          >
-            <SWRConfigContext>{children}</SWRConfigContext>
-          </main>
+          <div className="md:ml-16 lg:ml-48 xl:ml-64">
+            <main
+              className={`flex justify-center w-full h-full max-w-screen-xl mx-auto ${
+                session && 'mt-[60px]'
+              } md:mt-0`}
+            >
+              <SWRConfigContext>{children}</SWRConfigContext>
+            </main>
+          </div>
         </AuthContext>
         <div id="portal" />
       </body>
