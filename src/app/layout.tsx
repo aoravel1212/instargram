@@ -7,6 +7,7 @@ import { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/route';
+import Footer from '@/components/Footer';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -39,14 +40,15 @@ export default async function RootLayout({
               </div>
             </header>
           )}
-          <div className="md:ml-16 lg:ml-48 xl:ml-64">
+          <div className="flex flex-col justify-between md:ml-16 lg:ml-48 xl:ml-64">
             <main
-              className={`flex justify-center w-full h-full max-w-screen-xl mx-auto ${
+              className={`flex justify-center w-full min-h-[calc(100vh-52px)] max-w-screen-xl mx-auto ${
                 session && 'mt-[60px]'
               } md:mt-0`}
             >
               <SWRConfigContext>{children}</SWRConfigContext>
             </main>
+            <Footer />
           </div>
         </AuthContext>
         <div id="portal" />
