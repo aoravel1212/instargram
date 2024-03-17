@@ -13,24 +13,36 @@ export default function PostDetail() {
 
   return (
     <section className="flex w-full h-full">
-      <div className="relative basis-3/5 rounded-l-lg bg-black">
-        <Image
-          className="max-h-full max-w-full"
-          src={image}
-          alt={`photo by ${username}`}
-          priority
-          fill
-          objectFit="contain"
-        />
-      </div>
-      <div className="w-full basis-2/5 flex flex-col border-l border-neutral-200">
-        {data && (
+      <div className="flex flex-col justify-between basis-full rounded-lg sm:inline sm:rounded-r-none sm:rounded-l-lg sm:bg-black">
+        <div className="px-2 sm:hidden">
           <PostMenuModalProvider>
             <PostHeader />
-            <PostContent data={data} />
           </PostMenuModalProvider>
-        )}
-        <ActionBar onComment={postComment} />
+        </div>
+        <div className="flex justify-center items-center h-full">
+          <Image
+            className="object-contain max-w-full max-h-full"
+            src={image}
+            alt={`photo by ${username}`}
+            width={1000}
+            height={1000}
+            priority
+          />
+        </div>
+        <div className="px-2 sm:hidden">
+          <ActionBar onComment={postComment} />
+        </div>
+      </div>
+      <div className="hidden sm:min-w-[400px] sm:flex sm:flex-col sm:border-l sm:border-neutral-200">
+        <div className="px-4">
+          <PostMenuModalProvider>
+            <PostHeader />
+          </PostMenuModalProvider>
+        </div>
+        {data && <PostContent data={data} />}
+        <div className="px-4">
+          <ActionBar onComment={postComment} />
+        </div>
       </div>
     </section>
   );
