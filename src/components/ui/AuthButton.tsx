@@ -75,7 +75,7 @@ export default function AuthButton({
 
   const handleSignout = async () => {
     await signOut();
-    redirect('/');
+    redirect('/auth/signin');
   };
 
   return (
