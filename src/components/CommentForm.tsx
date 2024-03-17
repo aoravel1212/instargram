@@ -18,10 +18,7 @@ export default function CommentForm({ onPostComment }: Props) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex items-center px-3 border-t border-neutral-300"
-    >
+    <form onSubmit={handleSubmit} className="flex items-center">
       <SmileIcon />
       <input
         className="w-full ml-2 border-none outline-none p-3"
