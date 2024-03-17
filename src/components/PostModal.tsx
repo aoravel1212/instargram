@@ -28,7 +28,7 @@ export default function PostModal({
       </button>
       <div
         className={`bg-white rounded-lg ${
-          size === 'large' ? 'w-4/5 h-4/5 max-w-7xl' : 'w-80'
+          size === 'large' ? 'w-4/5 h-fit sm:h-4/5 max-w-7xl' : 'w-80'
         }`}
       >
         {children}
