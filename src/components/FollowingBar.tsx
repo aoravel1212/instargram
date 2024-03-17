@@ -1,16 +1,21 @@
 'use client';
-import Link from 'next/link';
 import { PropagateLoader } from 'react-spinners';
 import useMe from '@/hooks/me';
 import Avatar from './Avatar';
 import ScrollableBar from './ui/ScrollableBar';
+import useViewportWidth from '@/hooks/viewportWidth';
 
 export default function FollowingBar() {
+  const viewportWidth = useViewportWidth();
   const { user, isLoading: loading, error } = useMe();
   const users = user?.following;
 
   return (
-    <section className="w-full flex justify-center items-center p-4 shadow-sm shadow-neutral-300 mb-4 rounded-lg min-h-[90px] overflow-x-auto relative z-0">
+    <section
+      className={`w-full flex justify-center items-center py-2 min-h-[85px] max-w-[630px] overflow-x-auto relative z-0 mt-4 ${
+        viewportWidth <= 470 && 'border-b mt-0'
+      }`}
+    >
       {loading ? (
         <PropagateLoader size={8} color="red" />
       ) : (

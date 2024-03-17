@@ -10,6 +10,7 @@ import PostModal from './PostModal';
 import PostDetail from './PostDetail';
 import PostHeader from './PostHeader';
 import usePosts from '@/hooks/posts';
+import useViewportWidth from '@/hooks/viewportWidth';
 
 type Props = {
   priority?: boolean;
@@ -20,18 +21,23 @@ export default function PostListCard({ priority = false }: Props) {
   const { username, image, text, comments } = post;
   const { postComment } = usePosts();
   const [openModal, setOpenModal] = useState(false);
+  const viewportWidth = useViewportWidth();
 
   const handlePostComment = (comment: Comment) => {
     postComment(post, comment);
   };
 
   return (
-    <article className="rounded-lg shadow-md border border-gray-200">
-      <PostMenuModalProvider>
-        <PostHeader />
-      </PostMenuModalProvider>
+    <article className={`${viewportWidth > 470 && 'border-b'}`}>
+      <div className={`${viewportWidth <= 470 && 'px-2'}`}>
+        <PostMenuModalProvider>
+          <PostHeader />
+        </PostMenuModalProvider>
+      </div>
       <Image
-        className="w-full object-cover aspect-square border border-neutral-200"
+        className={`w-full object-cover aspect-square ${
+          viewportWidth > 470 && 'border border-neutral-300 rounded-md'
+        }`}
         src={image}
         alt={`photo by ${username}`}
         width={500}
@@ -39,22 +45,24 @@ export default function PostListCard({ priority = false }: Props) {
         priority={priority}
         onClick={() => setOpenModal(true)}
       />
-      <ActionBar onComment={handlePostComment}>
-        <p>
-          <span className="font-bold mr-1">{username}</span>
-          {text}
-        </p>
-        {comments > 0 && (
-          <button
-            className="font-bold my-2 text-sky-500"
-            onClick={() => setOpenModal(true)}
-          >
-            {comments === 1
-              ? `댓글 ${comments}개 보기`
-              : `댓글 ${comments}개 모두 보기`}
-          </button>
-        )}
-      </ActionBar>
+      <div className={`${viewportWidth <= 470 && 'px-2'}`}>
+        <ActionBar onComment={handlePostComment}>
+          <p>
+            <span className="font-bold mr-1">{username}</span>
+            {text}
+          </p>
+          {comments > 0 && (
+            <button
+              className="font-bold my-2 text-sky-500"
+              onClick={() => setOpenModal(true)}
+            >
+              {comments === 1
+                ? `댓글 ${comments}개 보기`
+                : `댓글 ${comments}개 모두 보기`}
+            </button>
+          )}
+        </ActionBar>
+      </div>
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
