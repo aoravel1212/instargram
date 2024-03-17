@@ -12,6 +12,7 @@ export default function ImageView({ image }: Props) {
         src={image}
         alt="local file"
         fill
+        sizes="650px"
       />
     </div>
   );
