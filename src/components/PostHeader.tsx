@@ -50,7 +50,7 @@ export default function PostHeader() {
   };
 
   return (
-    <div className="flex justify-between items-center p-2">
+    <div className="flex justify-between items-center py-3">
       <div className="flex items-center">
         <PostUserAvatar image={userImage} username={username} />
         <DotIcon />
