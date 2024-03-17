@@ -40,7 +40,7 @@ export default async function RootLayout({
               </div>
             </header>
           )}
-          <div className="flex flex-col justify-between md:ml-16 lg:ml-48 xl:ml-64">
+          <div className="md:ml-16 lg:ml-48 xl:ml-64">
             <main
               className={`flex justify-center w-full min-h-[calc(100vh-52px)] max-w-screen-xl mx-auto ${
                 session && 'mt-[60px]'
