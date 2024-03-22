@@ -8,6 +8,10 @@ export default function NewPost() {
   const [file, setFile] = useState<File>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
+  const [next, setNext] = useState(false);
+  const [text, setText] = useState('');
+  // 사용자가 인풋에 아무것도 입력하지 않으면 게시 버튼 비활성화
+  const buttonDisabled = text.length === 0;
 
   const textRef = useRef<HTMLTextAreaElement>(null);
 
@@ -37,7 +41,7 @@ export default function NewPost() {
   };
 
   return (
-    <section className="w-full h-full relative">
+    <section className="w-full h-full">
       {loading && (
         <div className="flex justify-center items-center absolute bg-slate-300/70 inset-0 z-20">
           <GridSpinner />
@@ -49,29 +53,46 @@ export default function NewPost() {
         </p>
       )}
       <form
-        className="flex justify-center items-center relative w-full h-[8%] py-2 border-b border-gray-200"
+        className="flex justify-center items-center relative w-full h-[8%] py-4 border-b border-gray-200"
         onSubmit={handleSubmit}
       >
-        <span className="font-semibold">Create a new post</span>
+        <span className="font-semibold">새 게시물</span>
         <div className="absolute right-0 pr-2">
-          <Button text="Publish" onClick={() => {}} type="text" />
+          {!next ? (
+            <Button
+              text={'다음'}
+              onClick={() => {
+                setNext(true);
+              }}
+              type="text"
+              buttonDisabled={!file}
+            />
+          ) : (
+            <Button
+              text={'공유'}
+              onClick={() => {}}
+              type="text"
+              buttonDisabled={buttonDisabled}
+            />
+          )}
         </div>
       </form>
       <div className="flex h-[92%]">
-        <div className="flex flex-col items-center w-2/3 h-full relative">
+        <div className="flex flex-col items-center h-full w-full md:w-2/3 relative">
           {!file && <ImageUploadView onImageUpload={handleImageUpload} />}
-          {file && <ImageView image={URL.createObjectURL(file)} />}
-        </div>
-        <div className="w-1/3 h-full border-l-2 border-gray-200">
-          <textarea
-            className="w-full h-full border-none outline-none resize-none rounded-br-lg p-2"
-            name="text"
-            id="input-text"
-            required
-            rows={10}
-            placeholder="Write a caption..."
-            ref={textRef}
-          />
+          {file && !next && <ImageView image={URL.createObjectURL(file)} />}
+          {next && (
+            <textarea
+              className="w-full h-full border-none outline-none resize-none rounded-b-lg p-2"
+              name="text"
+              id="input-text"
+              required
+              rows={10}
+              placeholder="문구를 작성해주세요"
+              ref={textRef}
+              onChange={(e) => setText(e.target.value)}
+            />
+          )}
         </div>
       </div>
     </section>
