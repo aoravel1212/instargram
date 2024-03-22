@@ -13,10 +13,10 @@ const openSans = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Instantgram',
-    template: 'Instantgram | %s',
+    default: 'Instargram',
+    template: 'Instargram | %s',
   },
-  description: 'Instantgram Phots',
+  description: 'Instargram Photos',
 };
 
 export default async function RootLayout({
