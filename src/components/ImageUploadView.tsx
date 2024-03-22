@@ -61,18 +61,18 @@ export default function ImageUploadView({ onImageUpload: setFile }: Props) {
         onDragLeave={handleDrag}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        className={`flex flex-col justify-center items-center w-full h-full absolute top-0 ${
+        className={`flex flex-col justify-center items-center w-full h-full top-0 mb-4 sm:mb-0 ${
           dragging &&
           'border-2 border-dashed border-black bg-slate-300 opacity-50 rounded-bl-lg'
         }`}
       >
         <div className="flex flex-col items-center pointer-events-none">
           <FilesIcon />
-          <p className="m-3 text-lg">Drag and drop your image here</p>
+          <p className="m-4 text-lg">사진을 여기에 끌어다 놓으세요</p>
         </div>
         <div className={`${dragging && 'pointer-events-none'}`}>
           <Button
-            text="Select on the computer"
+            text="컴퓨터에서 선택"
             onClick={handleUploadClick}
             type="box"
           />
