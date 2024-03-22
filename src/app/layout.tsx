@@ -40,7 +40,7 @@ export default async function RootLayout({
               </div>
             </header>
           )}
-          <div className="md:ml-16 lg:ml-48 xl:ml-64">
+          <div className={session ? `md:ml-16 lg:ml-48 xl:ml-64` : ''}>
             <main
               className={`flex items-center justify-center w-full min-h-[calc(100vh-52px)] max-w-screen-xl mx-auto ${
                 session && 'mt-[60px]'
