@@ -47,7 +47,7 @@ export default function FollowButton({ username, id, type }: Props) {
         <>
           <DotIcon />
           <Button
-            disabled={isUpdating}
+            buttonDisabled={isUpdating}
             text={text}
             onClick={handleFollow}
             red={text === 'Unfollow'}
@@ -57,7 +57,7 @@ export default function FollowButton({ username, id, type }: Props) {
       ) : (
         showButton && (
           <Button
-            disabled={isUpdating}
+            buttonDisabled={isUpdating}
             text={text}
             onClick={handleFollow}
             red={text === 'Unfollow'}
