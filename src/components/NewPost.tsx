@@ -41,7 +41,7 @@ export default function NewPost() {
   };
 
   return (
-    <section className="w-full h-full">
+    <section className="w-full h-full flex flex-col">
       {loading && (
         <div className="flex justify-center items-center absolute bg-slate-300/70 inset-0 z-20">
           <GridSpinner />
@@ -53,7 +53,7 @@ export default function NewPost() {
         </p>
       )}
       <form
-        className="flex justify-center items-center relative w-full h-[8%] py-4 border-b border-gray-200"
+        className="flex justify-center items-center relative w-full h-[40px] py-4 border-b border-gray-200"
         onSubmit={handleSubmit}
       >
         <span className="font-semibold">새 게시물</span>
@@ -77,8 +77,8 @@ export default function NewPost() {
           )}
         </div>
       </form>
-      <div className="flex h-[92%]">
-        <div className="flex flex-col items-center h-full w-full md:w-2/3 relative">
+      <div className="flex-1 w-full">
+        <div className="flex flex-col items-center h-full w-full relative">
           {!file && <ImageUploadView onImageUpload={handleImageUpload} />}
           {file && !next && <ImageView image={URL.createObjectURL(file)} />}
           {next && (
