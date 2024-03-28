@@ -16,7 +16,7 @@ export default function PostMenu({ authorId }: Props) {
   const menu = [
     {
       icon: <DeleteIcon />,
-      text: 'Delete',
+      text: '삭제',
       design: 'text-red-600 font-semibold',
       handle: () => {
         closeModal();
@@ -26,7 +26,7 @@ export default function PostMenu({ authorId }: Props) {
     },
     {
       icon: <EditIcon />,
-      text: 'Edit',
+      text: '수정',
       handle: () => {
         closeModal();
         openModal('edit');
@@ -35,7 +35,7 @@ export default function PostMenu({ authorId }: Props) {
     },
     {
       icon: <InformationIcon />,
-      text: 'This account information',
+      text: '이 계정 정보',
       handle: () => {
         closeModal();
         openModal('userInfo');
