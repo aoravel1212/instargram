@@ -34,7 +34,7 @@ export default function PostEdit() {
           return;
         }
       })
-      .then(() => alert('Your post was edited.'))
+      .then(() => alert('수정되었습니다.'))
       .catch((err) => {
         setError(err.toString());
         alert(error);
@@ -46,7 +46,7 @@ export default function PostEdit() {
   };
 
   return (
-    <section className="w-full h-full relative">
+    <section className="flex flex-col w-full h-full">
       {loading && (
         <div className="flex justify-center items-center absolute bg-slate-300/70 inset-0 z-20">
           <GridSpinner />
@@ -58,18 +58,18 @@ export default function PostEdit() {
         </p>
       )}
       <form
-        className="flex justify-center items-center relative w-full h-[8%] py-2 border-b border-gray-200"
+        className="flex justify-center items-center relative w-full h-[40px] py-2 border-b border-gray-200"
         onSubmit={handleEditPost}
       >
-        <span className="font-semibold">Edit post</span>
+        <span className="font-semibold">글 수정</span>
         <div className="absolute left-0 pl-2">
-          <Button text="Canel" onClick={() => closeModal()} type="text" />
+          <Button text="취소" onClick={() => closeModal()} type="text" />
         </div>
         <div className="absolute right-0 pr-2">
-          <Button text="Publish" onClick={() => {}} type="text" />
+          <Button text="완료" onClick={() => {}} type="text" />
         </div>
       </form>
-      <div className="flex h-[92%]">
+      <div className="flex flex-1 w-full h-full">
         <div className="flex flex-col items-center w-2/3 h-full relative">
           <ImageView image={image} />
         </div>
